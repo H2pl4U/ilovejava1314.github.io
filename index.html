@@ -228,7 +228,7 @@
 
     
 
-    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Home</a>
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>Beranda</a>
 
   </li>
         
@@ -245,7 +245,7 @@
 
     
 
-    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>About</a>
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>Tentang</a>
 
   </li>
         
@@ -279,7 +279,7 @@
 
     
 
-    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Archives</a>
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>Arsip</a>
 
   </li>
         
@@ -365,6 +365,157 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/13/列表知识点整理/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2018/12/13/列表知识点整理/" class="post-title-link" itemprop="http://yoursite.com/index.html">Tidak ada title</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Diposting di</span>
+              
+
+              
+                
+              
+
+              <time title="Post created: 2018-12-13 09:12:54 / Updated at: 09:14:20" itemprop="dateCreated datePublished" datetime="2018-12-13T09:12:54+08:00">2018-12-13</time>
+            
+
+            
+              
+
+              
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>#列表  （可变类型）</p>
+<p>##1.列表创建<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">a = []  列表的个数是任意的，里面的数据也是任意类型</span><br><span class="line">a = [元素<span class="number">1</span>， 元素<span class="number">2</span>，元素<span class="number">3</span>,...]</span><br><span class="line">-列表的嵌套：</span><br><span class="line">    a = [b[],c[],d[],...]</span><br></pre></td></tr></table></figure></p>
+<p>##2.列表的访问<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#    -5-4-3-4-1</span></span><br><span class="line">a = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>]</span><br><span class="line">     <span class="number">0</span> <span class="number">1</span> <span class="number">2</span> <span class="number">3</span> <span class="number">4</span></span><br><span class="line"><span class="comment">#取1，3，5的值  a[::2]</span></span><br><span class="line"><span class="comment">#a[索引值]</span></span><br></pre></td></tr></table></figure></p>
+<p>##3.如何修改列表里的元素<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#a[索引值] = 新的值</span></span><br><span class="line">a[<span class="number">1</span>] = <span class="number">1</span></span><br></pre></td></tr></table></figure></p>
+<p>##4.添加元素<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">-append()</span><br><span class="line">列表.append(待添加的值)  末尾追加</span><br><span class="line">-insert()</span><br><span class="line">列表.insert(索引值,待添加的值)   插入该索引值的前面一位</span><br><span class="line">-extend()</span><br><span class="line">列表.extend(列表<span class="number">2</span>)  把列表<span class="number">2</span>中的所有元素添加到列表<span class="number">1</span>的尾部</span><br></pre></td></tr></table></figure></p>
+<p>##5.删除元素<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">-pop()      有返回你删除的值</span><br><span class="line">a.pop()     删除a列表的最后一项元素</span><br><span class="line">a.pop(x)    删除a列表中索引值为x的元素</span><br><span class="line"></span><br><span class="line">-<span class="keyword">del</span>     </span><br><span class="line"><span class="keyword">del</span> 列表[<span class="number">1</span>]</span><br><span class="line"></span><br><span class="line">-remove</span><br><span class="line">a.remove[<span class="string">"某值"</span>]</span><br><span class="line"></span><br><span class="line">-clear 将整个列表删除</span><br><span class="line">a.clear（） 返回空列表[]</span><br></pre></td></tr></table></figure></p>
+<p>##其他方法<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1.</span>count()</span><br><span class="line">    a.count(元素值)  计算这个元素在a中出现的次数</span><br><span class="line"><span class="number">2.</span>sort()</span><br><span class="line">    a.sort()         从小到大进行排序(int)</span><br><span class="line"><span class="number">3.</span>reverse()</span><br><span class="line">    a.reverse()      颠倒列表</span><br><span class="line"><span class="number">4.</span>index()</span><br><span class="line">    a.index(元素值)  返回第一次出现这个元素的索引值</span><br></pre></td></tr></table></figure></p>
+<p>###in判断一个元素是否在列表中 返回值有True and False</p>
+<p>###not in 判断一个元素是否不在列表中 返回值有True and False</p>
+<p>###while循环语句<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> 条件:</span><br><span class="line">    循环体</span><br><span class="line">    循环体</span><br><span class="line">缩进对齐方式控制循环体</span><br></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+       
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/04/元组知识点整理/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -385,7 +536,7 @@
           <h1 class="post-title" itemprop="name headline">
                 
                 
-                <a href="/2018/12/04/元组知识点整理/" class="post-title-link" itemprop="http://yoursite.com/index.html">Untitled</a>
+                <a href="/2018/12/04/元组知识点整理/" class="post-title-link" itemprop="http://yoursite.com/index.html">Tidak ada title</a>
               
             
           </h1>
@@ -403,14 +554,14 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">Diposting di</span>
               
 
               
                 
               
 
-              <time title="Created: 2018-12-04 21:41:57 / Modified: 21:38:56" itemprop="dateCreated datePublished" datetime="2018-12-04T21:41:57+08:00">2018-12-04</time>
+              <time title="Post created: 2018-12-04 21:41:57 / Updated at: 21:38:56" itemprop="dateCreated datePublished" datetime="2018-12-04T21:41:57+08:00">2018-12-04</time>
             
 
             
@@ -516,143 +667,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/04/你好-Hexo/">
-
-    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2018/12/04/你好-Hexo/" class="post-title-link" itemprop="http://yoursite.com/index.html">你好,Hexo</a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-
-            
-            
-            
-
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">Posted on</span>
-              
-
-              
-                
-              
-
-              <time title="Created: 2018-12-04 16:29:45" itemprop="dateCreated datePublished" datetime="2018-12-04T16:29:45+08:00">2018-12-04</time>
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            
-          
-        
-      
-    </div>
-
-    
-
-    
-    
-    
-
-    
-
-    
-       
-    
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  
-
-  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/04/hello-world/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
@@ -691,14 +705,14 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">Diposting di</span>
               
 
               
                 
               
 
-              <time title="Created: 2018-12-04 15:48:49" itemprop="dateCreated datePublished" datetime="2018-12-04T15:48:49+08:00">2018-12-04</time>
+              <time title="Post created: 2018-12-04 15:48:49" itemprop="dateCreated datePublished" datetime="2018-12-04T15:48:49+08:00">2018-12-04</time>
             
 
             
@@ -784,6 +798,153 @@
 
 
     
+      
+
+  
+
+  
+  
+  
+
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/02/字典知识点整理/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                
+                <a href="/2018/12/02/字典知识点整理/" class="post-title-link" itemprop="http://yoursite.com/index.html">Tidak ada title</a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+
+            
+            
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Diposting di</span>
+              
+
+              
+                
+              
+
+              <time title="Post created: 2018-12-02 17:14:15" itemprop="dateCreated datePublished" datetime="2018-12-02T17:14:15+08:00">2018-12-02</time>
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="字典（dict）知识点"><a href="#字典（dict）知识点" class="headerlink" title="字典（dict）知识点"></a>字典（dict）知识点</h2><p>1.字典的创建</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># &#123;&#125; 或者 dict()</span></span><br></pre></td></tr></table></figure>
+<p>2.字典的元素</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 字典中的元素是以键值对的形式（key:value）</span></span><br><span class="line"><span class="comment"># key为不可变数据类型,必须唯一  字符串  数字  元组</span></span><br><span class="line"><span class="comment"># value可以不唯一为任意数据类型</span></span><br><span class="line"><span class="comment"># 元素与元素之间用“,”进行隔开</span></span><br><span class="line">info = &#123;<span class="string">"name"</span>: <span class="string">"陈独秀"</span>, <span class="string">"sex"</span>: <span class="string">"男"</span>&#125;</span><br></pre></td></tr></table></figure>
+<p>3.字典的元素访问</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 访问字典中存在的键</span></span><br><span class="line">字典名[key的名]   或   字典名.get(key的名)</span><br><span class="line"><span class="comment"># 访问字典中不存在的键</span></span><br><span class="line">字典名.get(key的名)  返回：<span class="keyword">None</span> </span><br><span class="line"><span class="comment"># get()可以给字典中不存在的键赋值</span></span><br><span class="line">字典名.get(key的名, 值)</span><br></pre></td></tr></table></figure>
+<p>4.字典的基本操作</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 增删改查  其他</span></span><br><span class="line"><span class="comment"># 增</span></span><br><span class="line">字典名[新的键名] = 新的值</span><br><span class="line"><span class="comment"># 删</span></span><br><span class="line"><span class="keyword">del</span>  clear()</span><br><span class="line"><span class="comment"># 改</span></span><br><span class="line">字典名[键的名字] = 新的值</span><br><span class="line"><span class="comment"># 查</span></span><br><span class="line">字典名[键的名字]</span><br><span class="line"><span class="comment"># 其他</span></span><br><span class="line">len()  keys()  values()   items()</span><br></pre></td></tr></table></figure>
+<p>5.遍历</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 遍历key</span></span><br><span class="line"><span class="comment"># 遍历value</span></span><br><span class="line"><span class="comment"># 遍历元素</span></span><br><span class="line"><span class="comment"># 遍历key and value</span></span><br></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+
+    
+
+    
+    
+    
+
+    
+
+    
+       
+    
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
   </section>
 
   
@@ -827,8 +988,8 @@
                 
                   <a href="/archives/">
                 
-                    <span class="site-state-item-count">3</span>
-                    <span class="site-state-item-name">posts</span>
+                    <span class="site-state-item-count">4</span>
+                    <span class="site-state-item-name">posting</span>
                   </a>
                 </div>
               
@@ -890,7 +1051,7 @@
 
 
 
-  <div class="theme-info">Theme – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v6.6.0</div>
+  <div class="theme-info">Tema – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v6.6.0</div>
 
 
 
