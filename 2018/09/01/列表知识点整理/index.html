@@ -6,16 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>tags | coderBlog</title>
+  <title>Python基本类型之列表 | coderBlog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="tags">
-<meta property="og:url" content="http://yoursite.com/tags/index.html">
+  <meta name="description" content="列表  （可变类型）1.列表创建1234a = []  列表的个数是任意的，里面的数据也是任意类型a = [元素1， 元素2，元素3,...]-列表的嵌套：    a = [b[],c[],d[],...] ##2.列表的访问12345#    -5-4-3-4-1a = [1,2,3,4,5]     0 1 2 3 4#取1，3，5的值  a[::2]#a[索引值] ##3.如何修改列表里的元">
+<meta name="keywords" content="Python">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python基本类型之列表">
+<meta property="og:url" content="http://yoursite.com/2018/09/01/列表知识点整理/index.html">
 <meta property="og:site_name" content="coderBlog">
+<meta property="og:description" content="列表  （可变类型）1.列表创建1234a = []  列表的个数是任意的，里面的数据也是任意类型a = [元素1， 元素2，元素3,...]-列表的嵌套：    a = [b[],c[],d[],...] ##2.列表的访问12345#    -5-4-3-4-1a = [1,2,3,4,5]     0 1 2 3 4#取1，3，5的值  a[::2]#a[索引值] ##3.如何修改列表里的元">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-12-05T06:38:00.356Z">
+<meta property="og:updated_time" content="2019-03-01T14:18:32.635Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="tags">
+<meta name="twitter:title" content="Python基本类型之列表">
+<meta name="twitter:description" content="列表  （可变类型）1.列表创建1234a = []  列表的个数是任意的，里面的数据也是任意类型a = [元素1， 元素2，元素3,...]-列表的嵌套：    a = [b[],c[],d[],...] ##2.列表的访问12345#    -5-4-3-4-1a = [1,2,3,4,5]     0 1 2 3 4#取1，3，5的值  a[::2]#a[索引值] ##3.如何修改列表里的元">
   
     <link rel="alternative" href="/atom.xml" title="coderBlog" type="application/atom+xml">
   
@@ -151,27 +155,36 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="page-" class="article article-type-page " itemscope="" itemprop="blogPost">
+            <article id="post-列表知识点整理" class="article article-type-post " itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      tags
+      Python基本类型之列表
     </h1>
   
 
         
-        <a href="/tags/index.html" class="archive-article-date">
-  	<time datetime="2018-12-05T06:38:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-12-05</time>
+        <a href="/2018/09/01/列表知识点整理/" class="archive-article-date">
+  	<time datetime="2018-09-01T13:34:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-09-01</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <h1 id="列表-（可变类型）"><a href="#列表-（可变类型）" class="headerlink" title="列表  （可变类型）"></a>列表  （可变类型）</h1><h2 id="1-列表创建"><a href="#1-列表创建" class="headerlink" title="1.列表创建"></a>1.列表创建</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">a = []  列表的个数是任意的，里面的数据也是任意类型</span><br><span class="line">a = [元素<span class="number">1</span>， 元素<span class="number">2</span>，元素<span class="number">3</span>,...]</span><br><span class="line">-列表的嵌套：</span><br><span class="line">    a = [b[],c[],d[],...]</span><br></pre></td></tr></table></figure>
+<p>##2.列表的访问<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#    -5-4-3-4-1</span></span><br><span class="line">a = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>]</span><br><span class="line">     <span class="number">0</span> <span class="number">1</span> <span class="number">2</span> <span class="number">3</span> <span class="number">4</span></span><br><span class="line"><span class="comment">#取1，3，5的值  a[::2]</span></span><br><span class="line"><span class="comment">#a[索引值]</span></span><br></pre></td></tr></table></figure></p>
+<p>##3.如何修改列表里的元素<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#a[索引值] = 新的值</span></span><br><span class="line">a[<span class="number">1</span>] = <span class="number">1</span></span><br></pre></td></tr></table></figure></p>
+<p>##4.添加元素<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">-append()</span><br><span class="line">列表.append(待添加的值)  末尾追加</span><br><span class="line">-insert()</span><br><span class="line">列表.insert(索引值,待添加的值)   插入该索引值的前面一位</span><br><span class="line">-extend()</span><br><span class="line">列表.extend(列表<span class="number">2</span>)  把列表<span class="number">2</span>中的所有元素添加到列表<span class="number">1</span>的尾部</span><br></pre></td></tr></table></figure></p>
+<p>##5.删除元素<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">-pop()      有返回你删除的值</span><br><span class="line">a.pop()     删除a列表的最后一项元素</span><br><span class="line">a.pop(x)    删除a列表中索引值为x的元素</span><br><span class="line"></span><br><span class="line">-<span class="keyword">del</span>     </span><br><span class="line"><span class="keyword">del</span> 列表[<span class="number">1</span>]</span><br><span class="line"></span><br><span class="line">-remove</span><br><span class="line">a.remove[<span class="string">"某值"</span>]</span><br><span class="line"></span><br><span class="line">-clear 将整个列表删除</span><br><span class="line">a.clear（） 返回空列表[]</span><br></pre></td></tr></table></figure></p>
+<p>##其他方法<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1.</span>count()</span><br><span class="line">    a.count(元素值)  计算这个元素在a中出现的次数</span><br><span class="line"><span class="number">2.</span>sort()</span><br><span class="line">    a.sort()         从小到大进行排序(int)</span><br><span class="line"><span class="number">3.</span>reverse()</span><br><span class="line">    a.reverse()      颠倒列表</span><br><span class="line"><span class="number">4.</span>index()</span><br><span class="line">    a.index(元素值)  返回第一次出现这个元素的索引值</span><br></pre></td></tr></table></figure></p>
+<p>in判断一个元素是否在列表中 返回值有True and False</p>
+<p>not in 判断一个元素是否不在列表中 返回值有True and False</p>
+<p>while循环语句</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> 条件:</span><br><span class="line">    循环体</span><br><span class="line">    循环体</span><br><span class="line">缩进对齐方式控制循环体</span><br></pre></td></tr></table></figure>
       
 
       
@@ -200,7 +213,29 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Python//" class="article-tag-list-link color2">Python</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
 
       
 
@@ -250,7 +285,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/tags/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2018/09/01/列表知识点整理/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -262,6 +297,25 @@
 </article>
 
   
+<nav id="article-nav">
+  
+    <a href="/2018/09/01/元组知识点整理/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          Python基本类型之元组
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/09/01/字典知识点整理/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Python基本类型之字典</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -275,6 +329,19 @@
             </div>
         </div>
         
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#列表-（可变类型）"><span class="toc-number">1.</span> <span class="toc-text">列表  （可变类型）</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-列表创建"><span class="toc-number">1.1.</span> <span class="toc-text">1.列表创建</span></a></li></ol></li></ol>
+                    </div>
+                </span>
+            </div>
+        </div>
         
     </div>
 </aside>
@@ -312,7 +379,7 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,

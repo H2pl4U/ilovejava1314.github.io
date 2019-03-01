@@ -152,119 +152,6 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-列表知识点整理" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="列表-（可变类型）"><a href="#列表-（可变类型）" class="headerlink" title="列表  （可变类型）"></a>列表  （可变类型）</h1><h2 id="1-列表创建"><a href="#1-列表创建" class="headerlink" title="1.列表创建"></a>1.列表创建</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">a = []  列表的个数是任意的，里面的数据也是任意类型</span><br><span class="line">a = [元素<span class="number">1</span>， 元素<span class="number">2</span>，元素<span class="number">3</span>,...]</span><br><span class="line">-列表的嵌套：</span><br><span class="line">    a = [b[],c[],d[],...]</span><br></pre></td></tr></table></figure>
-<p>##2.列表的访问<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#    -5-4-3-4-1</span></span><br><span class="line">a = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>]</span><br><span class="line">     <span class="number">0</span> <span class="number">1</span> <span class="number">2</span> <span class="number">3</span> <span class="number">4</span></span><br><span class="line"><span class="comment">#取1，3，5的值  a[::2]</span></span><br><span class="line"><span class="comment">#a[索引值]</span></span><br></pre></td></tr></table></figure></p>
-<p>##3.如何修改列表里的元素<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#a[索引值] = 新的值</span></span><br><span class="line">a[<span class="number">1</span>] = <span class="number">1</span></span><br></pre></td></tr></table></figure></p>
-<p>##4.添加元素<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">-append()</span><br><span class="line">列表.append(待添加的值)  末尾追加</span><br><span class="line">-insert()</span><br><span class="line">列表.insert(索引值,待添加的值)   插入该索引值的前面一位</span><br><span class="line">-extend()</span><br><span class="line">列表.extend(列表<span class="number">2</span>)  把列表<span class="number">2</span>中的所有元素添加到列表<span class="number">1</span>的尾部</span><br></pre></td></tr></table></figure></p>
-<p>##5.删除元素<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">-pop()      有返回你删除的值</span><br><span class="line">a.pop()     删除a列表的最后一项元素</span><br><span class="line">a.pop(x)    删除a列表中索引值为x的元素</span><br><span class="line"></span><br><span class="line">-<span class="keyword">del</span>     </span><br><span class="line"><span class="keyword">del</span> 列表[<span class="number">1</span>]</span><br><span class="line"></span><br><span class="line">-remove</span><br><span class="line">a.remove[<span class="string">"某值"</span>]</span><br><span class="line"></span><br><span class="line">-clear 将整个列表删除</span><br><span class="line">a.clear（） 返回空列表[]</span><br></pre></td></tr></table></figure></p>
-<p>##其他方法<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1.</span>count()</span><br><span class="line">    a.count(元素值)  计算这个元素在a中出现的次数</span><br><span class="line"><span class="number">2.</span>sort()</span><br><span class="line">    a.sort()         从小到大进行排序(int)</span><br><span class="line"><span class="number">3.</span>reverse()</span><br><span class="line">    a.reverse()      颠倒列表</span><br><span class="line"><span class="number">4.</span>index()</span><br><span class="line">    a.index(元素值)  返回第一次出现这个元素的索引值</span><br></pre></td></tr></table></figure></p>
-<p>###in判断一个元素是否在列表中 返回值有True and False</p>
-<p>###not in 判断一个元素是否不在列表中 返回值有True and False</p>
-<p>###while循环语句<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> 条件:</span><br><span class="line">    循环体</span><br><span class="line">    循环体</span><br><span class="line">缩进对齐方式控制循环体</span><br></pre></td></tr></table></figure></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/12/13/列表知识点整理/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-元组知识点整理" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="元组知识点整理"><a href="#元组知识点整理" class="headerlink" title="元组知识点整理"></a>元组知识点整理</h3><p>1.元组的创建</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 两种方式</span></span><br><span class="line">tup1 = ()</span><br><span class="line">tup2 = tuple()</span><br></pre></td></tr></table></figure>
-<p>2.元组的数据储存</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 字符串，number，列表，布尔值，元组等</span></span><br><span class="line">tup3 = (<span class="string">""</span>, <span class="number">60</span>, [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>], <span class="keyword">True</span>, ())</span><br><span class="line"><span class="comment"># 怎么创建一个有且只有一个元素的元组</span></span><br><span class="line"><span class="comment"># 一定不要少了“  ,  ”</span></span><br><span class="line">tup4 = (元素,)</span><br></pre></td></tr></table></figure>
-<p>3.元组的数据访问</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 使用下标（索引）访问</span></span><br><span class="line">tup = (<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>)</span><br><span class="line">tup[<span class="number">3</span>]</span><br><span class="line"><span class="comment"># 元组的切片使用</span></span><br><span class="line">tup[<span class="number">1</span>:]</span><br></pre></td></tr></table></figure>
-<p>4.元组的拆包</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">1.使用“*”进行拆包</span></span><br><span class="line"><span class="string">2.定义和元组元素个数相同变量</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line">a = (<span class="string">"a"</span>, <span class="string">"b"</span>, <span class="string">"c"</span>)</span><br><span class="line">print(*a)</span><br><span class="line">one, two, three, four = a</span><br></pre></td></tr></table></figure>
-<p>5.元素的基本操作</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 不可变数据类型</span></span><br><span class="line"><span class="comment"># 查  in  not in  count  index</span></span><br></pre></td></tr></table></figure>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/12/04/元组知识点整理/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
     <article id="post-hello-world" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
@@ -336,8 +223,307 @@
 
 
   
+    <article id="post-Servlet之登陆验证" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/11/01/Servlet之登陆验证/">Servlet之登陆验证</a>
+    </h1>
+  
+
+        
+        <a href="/2018/11/01/Servlet之登陆验证/" class="archive-article-date">
+  	<time datetime="2018-11-01T13:01:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-01</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Servlet之登陆验证"><a href="#Servlet之登陆验证" class="headerlink" title="Servlet之登陆验证"></a>Servlet之登陆验证</h1><p>编写LoginServlet，实现登陆验证</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">doGet</span><span class="params">(HttpServletRequest request, HttpServletResponse response)</span> <span class="keyword">throws</span> ServletException, IOException </span>&#123;</span><br><span class="line">	<span class="comment">//设置编码</span></span><br><span class="line">	request.setCharacterEncoding(<span class="string">"utf-8"</span>);</span><br><span class="line">	<span class="comment">//接收用户输入的验证码 和 图片验证码</span></span><br><span class="line">	String rCode = request.getParameter(<span class="string">"checkcode"</span>);</span><br><span class="line">	String sCode = (String) request.getSession().getAttribute(<span class="string">"sessionCode"</span>);</span><br><span class="line">	<span class="comment">//保证验证码一次性将其从session中移除</span></span><br><span class="line">	request.getSession().removeAttribute(<span class="string">"sessionCode"</span>);</span><br><span class="line">	<span class="comment">//判断两个验证码</span></span><br><span class="line">	<span class="keyword">if</span>(rCode==<span class="keyword">null</span> || rCode.trim().length()==<span class="number">0</span>||sCode==<span class="keyword">null</span>) &#123;</span><br><span class="line">		<span class="comment">//提示信息  验证码为空</span></span><br><span class="line">		request.setAttribute(<span class="string">"msg"</span>, <span class="string">"验证码不能为空,请重新输入验证码"</span>);</span><br><span class="line">		request.getRequestDispatcher(<span class="string">"/login.jsp"</span>).forward(request, response);</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span>(!sCode.equalsIgnoreCase(rCode)) &#123;</span><br><span class="line">		<span class="comment">//提示信息  验证码前后不一致</span></span><br><span class="line">		request.setAttribute(<span class="string">"msg"</span>, <span class="string">"验证码不一致,请重新输入验证码"</span>);</span><br><span class="line">		request.getRequestDispatcher(<span class="string">"/login.jsp"</span>).forward(request, response);</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//接收用户名和密码</span></span><br><span class="line">	String username = request.getParameter(<span class="string">"username"</span>);</span><br><span class="line">	String password = request.getParameter(<span class="string">"password"</span>);</span><br><span class="line">	</span><br><span class="line">	User user=<span class="keyword">null</span>;</span><br><span class="line">	<span class="comment">//调用userService的getUserByUsernameAndPwd   返回值user</span></span><br><span class="line">	<span class="keyword">try</span> &#123;</span><br><span class="line">		user = <span class="keyword">new</span> UserService().getUserByUsernameAndPwd(username,password);</span><br><span class="line">	&#125; <span class="keyword">catch</span> (SQLException e) &#123;</span><br><span class="line">		<span class="comment">// TODO Auto-generated catch block</span></span><br><span class="line">		e.printStackTrace();</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//判断user</span></span><br><span class="line">	<span class="keyword">if</span>(user==<span class="keyword">null</span>) &#123;</span><br><span class="line">		<span class="comment">//提示信息  用户不存在</span></span><br><span class="line">		request.setAttribute(<span class="string">"msg"</span>, <span class="string">"用户名或密码错误,请重新输入"</span>);</span><br><span class="line">		request.getRequestDispatcher(<span class="string">"/login.jsp"</span>).forward(request, response);</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;<span class="keyword">else</span> &#123;</span><br><span class="line">		<span class="comment">//判断用户是否勾选了记住用户名  将user放入session中</span></span><br><span class="line">		<span class="keyword">if</span>(<span class="string">"ok"</span>.equals(request.getParameter(<span class="string">"savename"</span>))) &#123;</span><br><span class="line">			Cookie c = <span class="keyword">new</span> Cookie(<span class="string">"savename"</span>, username);</span><br><span class="line">			c.setPath(request.getContextPath()+<span class="string">"/"</span>);</span><br><span class="line">			c.setMaxAge(<span class="number">3600</span>);</span><br><span class="line">			<span class="comment">//写回浏览器</span></span><br><span class="line">			response.addCookie(c);</span><br><span class="line">		&#125;</span><br><span class="line">		request.getSession().setAttribute(<span class="string">"user"</span>, user);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//页面重定向到index.jsp</span></span><br><span class="line">	response.sendRedirect(request.getContextPath()+<span class="string">"/index.jsp"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>UserService业务逻辑层，调用UserDao层</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"> <span class="comment">/**</span></span><br><span class="line"><span class="comment"> * </span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> username</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> password</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@throws</span> SQLException</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> User <span class="title">getUserByUsernameAndPwd</span><span class="params">(String username, String password)</span> <span class="keyword">throws</span> SQLException </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="keyword">new</span> UserDao().getUserByUsernameAndPassword(username, password);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>UserDao层，实现在数据库中查询用户名和密码，返回一个User类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* </span></span><br><span class="line"><span class="comment">* <span class="doctag">@param</span> username</span></span><br><span class="line"><span class="comment">* <span class="doctag">@param</span> password</span></span><br><span class="line"><span class="comment">* <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">* <span class="doctag">@throws</span> SQLException</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line">  <span class="comment">//查询用户名与密码</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> User <span class="title">getUserByUsernameAndPassword</span><span class="params">(String username, String password)</span> <span class="keyword">throws</span> SQLException </span>&#123;</span><br><span class="line">    QueryRunner qr = <span class="keyword">new</span> QueryRunner(DataSourceUtil.getDataSource());</span><br><span class="line">    String sql = <span class="string">"select * from users where username=? and password=?"</span>;</span><br><span class="line">    User user = qr.query(sql, <span class="keyword">new</span> BeanHandler&lt;&gt;(User.class), username,password);</span><br><span class="line">    <span class="keyword">return</span> user;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<p>登录错误信息展示在Login.jsp页面中,代码如下</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;font&gt;会员登录&lt;/font&gt;USER LOGIN  &lt;font style="color: red;font-size: 10px;font-family:'微软雅黑'   "&gt;$&#123;msg &#125;&lt;/font&gt;</span><br></pre></td></tr></table></figure>
+<p>综上即可完成对登陆页面的验证，难度较低。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">servlet</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Java//" class="article-tag-list-link color5">Java</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/11/01/Servlet之登陆验证/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-元组知识点整理" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/09/01/元组知识点整理/">Python基本类型之元组</a>
+    </h1>
+  
+
+        
+        <a href="/2018/09/01/元组知识点整理/" class="archive-article-date">
+  	<time datetime="2018-09-01T13:34:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-09-01</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="元组知识点整理"><a href="#元组知识点整理" class="headerlink" title="元组知识点整理"></a>元组知识点整理</h3><p>1.元组的创建</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 两种方式</span></span><br><span class="line">tup1 = ()</span><br><span class="line">tup2 = tuple()</span><br></pre></td></tr></table></figure>
+<p>2.元组的数据储存</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 字符串，number，列表，布尔值，元组等</span></span><br><span class="line">tup3 = (<span class="string">""</span>, <span class="number">60</span>, [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>], <span class="keyword">True</span>, ())</span><br><span class="line"><span class="comment"># 怎么创建一个有且只有一个元素的元组</span></span><br><span class="line"><span class="comment"># 一定不要少了“  ,  ”</span></span><br><span class="line">tup4 = (元素,)</span><br></pre></td></tr></table></figure>
+<p>3.元组的数据访问</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 使用下标（索引）访问</span></span><br><span class="line">tup = (<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>)</span><br><span class="line">tup[<span class="number">3</span>]</span><br><span class="line"><span class="comment"># 元组的切片使用</span></span><br><span class="line">tup[<span class="number">1</span>:]</span><br></pre></td></tr></table></figure>
+<p>4.元组的拆包</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">1.使用“*”进行拆包</span></span><br><span class="line"><span class="string">2.定义和元组元素个数相同变量</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line">a = (<span class="string">"a"</span>, <span class="string">"b"</span>, <span class="string">"c"</span>)</span><br><span class="line">print(*a)</span><br><span class="line">one, two, three, four = a</span><br></pre></td></tr></table></figure>
+<p>5.元素的基本操作</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 不可变数据类型</span></span><br><span class="line"><span class="comment"># 查  in  not in  count  index</span></span><br></pre></td></tr></table></figure>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Python//" class="article-tag-list-link color2">Python</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/09/01/元组知识点整理/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-列表知识点整理" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/09/01/列表知识点整理/">Python基本类型之列表</a>
+    </h1>
+  
+
+        
+        <a href="/2018/09/01/列表知识点整理/" class="archive-article-date">
+  	<time datetime="2018-09-01T13:34:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-09-01</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="列表-（可变类型）"><a href="#列表-（可变类型）" class="headerlink" title="列表  （可变类型）"></a>列表  （可变类型）</h1><h2 id="1-列表创建"><a href="#1-列表创建" class="headerlink" title="1.列表创建"></a>1.列表创建</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">a = []  列表的个数是任意的，里面的数据也是任意类型</span><br><span class="line">a = [元素<span class="number">1</span>， 元素<span class="number">2</span>，元素<span class="number">3</span>,...]</span><br><span class="line">-列表的嵌套：</span><br><span class="line">    a = [b[],c[],d[],...]</span><br></pre></td></tr></table></figure>
+<p>##2.列表的访问<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#    -5-4-3-4-1</span></span><br><span class="line">a = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>]</span><br><span class="line">     <span class="number">0</span> <span class="number">1</span> <span class="number">2</span> <span class="number">3</span> <span class="number">4</span></span><br><span class="line"><span class="comment">#取1，3，5的值  a[::2]</span></span><br><span class="line"><span class="comment">#a[索引值]</span></span><br></pre></td></tr></table></figure></p>
+<p>##3.如何修改列表里的元素<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#a[索引值] = 新的值</span></span><br><span class="line">a[<span class="number">1</span>] = <span class="number">1</span></span><br></pre></td></tr></table></figure></p>
+<p>##4.添加元素<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">-append()</span><br><span class="line">列表.append(待添加的值)  末尾追加</span><br><span class="line">-insert()</span><br><span class="line">列表.insert(索引值,待添加的值)   插入该索引值的前面一位</span><br><span class="line">-extend()</span><br><span class="line">列表.extend(列表<span class="number">2</span>)  把列表<span class="number">2</span>中的所有元素添加到列表<span class="number">1</span>的尾部</span><br></pre></td></tr></table></figure></p>
+<p>##5.删除元素<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">-pop()      有返回你删除的值</span><br><span class="line">a.pop()     删除a列表的最后一项元素</span><br><span class="line">a.pop(x)    删除a列表中索引值为x的元素</span><br><span class="line"></span><br><span class="line">-<span class="keyword">del</span>     </span><br><span class="line"><span class="keyword">del</span> 列表[<span class="number">1</span>]</span><br><span class="line"></span><br><span class="line">-remove</span><br><span class="line">a.remove[<span class="string">"某值"</span>]</span><br><span class="line"></span><br><span class="line">-clear 将整个列表删除</span><br><span class="line">a.clear（） 返回空列表[]</span><br></pre></td></tr></table></figure></p>
+<p>##其他方法<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1.</span>count()</span><br><span class="line">    a.count(元素值)  计算这个元素在a中出现的次数</span><br><span class="line"><span class="number">2.</span>sort()</span><br><span class="line">    a.sort()         从小到大进行排序(int)</span><br><span class="line"><span class="number">3.</span>reverse()</span><br><span class="line">    a.reverse()      颠倒列表</span><br><span class="line"><span class="number">4.</span>index()</span><br><span class="line">    a.index(元素值)  返回第一次出现这个元素的索引值</span><br></pre></td></tr></table></figure></p>
+<p>in判断一个元素是否在列表中 返回值有True and False</p>
+<p>not in 判断一个元素是否不在列表中 返回值有True and False</p>
+<p>while循环语句</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> 条件:</span><br><span class="line">    循环体</span><br><span class="line">    循环体</span><br><span class="line">缩进对齐方式控制循环体</span><br></pre></td></tr></table></figure>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Python//" class="article-tag-list-link color2">Python</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/09/01/列表知识点整理/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-字典知识点整理" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
   <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/09/01/字典知识点整理/">Python基本类型之字典</a>
+    </h1>
+  
+
+        
+        <a href="/2018/09/01/字典知识点整理/" class="archive-article-date">
+  	<time datetime="2018-09-01T13:34:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-09-01</time>
+</a>
+        
+      </header>
     
     <div class="article-entry" itemprop="articleBody">
       
@@ -359,11 +545,33 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Python//" class="article-tag-list-link color2">Python</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2018/12/02/字典知识点整理/">展开全文 >></a>
+          <a class="article-more-a" href="/2018/09/01/字典知识点整理/">展开全文 >></a>
         </p>
       
 
@@ -484,6 +692,18 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
             <input type="checkbox" q-on="click:toggleTag(e)" q-attr="checked:showTags">
           </label>
           <ul class="article-tag-list" q-show="showTags">
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">java</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">servlet</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Python</a>
+              </li>
             
             <div class="clearfix"></div>
           </ul>

@@ -6,16 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>tags | coderBlog</title>
+  <title>Python基本类型之元组 | coderBlog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="tags">
-<meta property="og:url" content="http://yoursite.com/tags/index.html">
+  <meta name="description" content="元组知识点整理1.元组的创建 123# 两种方式tup1 = ()tup2 = tuple() 2.元组的数据储存 12345# 字符串，number，列表，布尔值，元组等tup3 = (&quot;&quot;, 60, [1, 2, 3], True, ())# 怎么创建一个有且只有一个元素的元组# 一定不要少了“  ,  ”tup4 = (元素,) 3.元组的数据访问 12345# 使用下标（索引）访问tup">
+<meta name="keywords" content="Python">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python基本类型之元组">
+<meta property="og:url" content="http://yoursite.com/2018/09/01/元组知识点整理/index.html">
 <meta property="og:site_name" content="coderBlog">
+<meta property="og:description" content="元组知识点整理1.元组的创建 123# 两种方式tup1 = ()tup2 = tuple() 2.元组的数据储存 12345# 字符串，number，列表，布尔值，元组等tup3 = (&quot;&quot;, 60, [1, 2, 3], True, ())# 怎么创建一个有且只有一个元素的元组# 一定不要少了“  ,  ”tup4 = (元素,) 3.元组的数据访问 12345# 使用下标（索引）访问tup">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-12-05T06:38:00.356Z">
+<meta property="og:updated_time" content="2019-03-01T14:19:17.259Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="tags">
+<meta name="twitter:title" content="Python基本类型之元组">
+<meta name="twitter:description" content="元组知识点整理1.元组的创建 123# 两种方式tup1 = ()tup2 = tuple() 2.元组的数据储存 12345# 字符串，number，列表，布尔值，元组等tup3 = (&quot;&quot;, 60, [1, 2, 3], True, ())# 怎么创建一个有且只有一个元素的元组# 一定不要少了“  ,  ”tup4 = (元素,) 3.元组的数据访问 12345# 使用下标（索引）访问tup">
   
     <link rel="alternative" href="/atom.xml" title="coderBlog" type="application/atom+xml">
   
@@ -151,27 +155,37 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="page-" class="article article-type-page " itemscope="" itemprop="blogPost">
+            <article id="post-元组知识点整理" class="article article-type-post " itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      tags
+      Python基本类型之元组
     </h1>
   
 
         
-        <a href="/tags/index.html" class="archive-article-date">
-  	<time datetime="2018-12-05T06:38:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-12-05</time>
+        <a href="/2018/09/01/元组知识点整理/" class="archive-article-date">
+  	<time datetime="2018-09-01T13:34:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-09-01</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <h3 id="元组知识点整理"><a href="#元组知识点整理" class="headerlink" title="元组知识点整理"></a>元组知识点整理</h3><p>1.元组的创建</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 两种方式</span></span><br><span class="line">tup1 = ()</span><br><span class="line">tup2 = tuple()</span><br></pre></td></tr></table></figure>
+<p>2.元组的数据储存</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 字符串，number，列表，布尔值，元组等</span></span><br><span class="line">tup3 = (<span class="string">""</span>, <span class="number">60</span>, [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>], <span class="keyword">True</span>, ())</span><br><span class="line"><span class="comment"># 怎么创建一个有且只有一个元素的元组</span></span><br><span class="line"><span class="comment"># 一定不要少了“  ,  ”</span></span><br><span class="line">tup4 = (元素,)</span><br></pre></td></tr></table></figure>
+<p>3.元组的数据访问</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 使用下标（索引）访问</span></span><br><span class="line">tup = (<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>)</span><br><span class="line">tup[<span class="number">3</span>]</span><br><span class="line"><span class="comment"># 元组的切片使用</span></span><br><span class="line">tup[<span class="number">1</span>:]</span><br></pre></td></tr></table></figure>
+<p>4.元组的拆包</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">1.使用“*”进行拆包</span></span><br><span class="line"><span class="string">2.定义和元组元素个数相同变量</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line">a = (<span class="string">"a"</span>, <span class="string">"b"</span>, <span class="string">"c"</span>)</span><br><span class="line">print(*a)</span><br><span class="line">one, two, three, four = a</span><br></pre></td></tr></table></figure>
+<p>5.元素的基本操作</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 不可变数据类型</span></span><br><span class="line"><span class="comment"># 查  in  not in  count  index</span></span><br></pre></td></tr></table></figure>
+
       
 
       
@@ -200,7 +214,29 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Python//" class="article-tag-list-link color2">Python</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
 
       
 
@@ -250,7 +286,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/tags/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2018/09/01/元组知识点整理/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -262,6 +298,25 @@
 </article>
 
   
+<nav id="article-nav">
+  
+    <a href="/2018/11/01/Servlet之登陆验证/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          Servlet之登陆验证
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/09/01/列表知识点整理/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Python基本类型之列表</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -275,6 +330,19 @@
             </div>
         </div>
         
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#元组知识点整理"><span class="toc-number">1.</span> <span class="toc-text">元组知识点整理</span></a></li></ol>
+                    </div>
+                </span>
+            </div>
+        </div>
         
     </div>
 </aside>
@@ -312,7 +380,7 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,

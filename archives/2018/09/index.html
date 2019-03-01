@@ -6,19 +6,15 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>coderBlog</title>
+  <title>Archives: 2018/9 | coderBlog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="字典（dict）知识点1.字典的创建 1# &amp;#123;&amp;#125; 或者 dict() 2.字典的元素 12345# 字典中的元素是以键值对的形式（key:value）# key为不可变数据类型,必须唯一  字符串  数字  元组# value可以不唯一为任意数据类型# 元素与元素之间用“,”进行隔开info = &amp;#123;&quot;name&quot;: &quot;陈独秀&quot;, &quot;sex&quot;: &quot;男&quot;&amp;#125; 3.字">
-<meta property="og:type" content="article">
+  <meta property="og:type" content="website">
 <meta property="og:title" content="coderBlog">
-<meta property="og:url" content="http://yoursite.com/2018/12/02/字典知识点整理/index.html">
+<meta property="og:url" content="http://yoursite.com/archives/2018/09/index.html">
 <meta property="og:site_name" content="coderBlog">
-<meta property="og:description" content="字典（dict）知识点1.字典的创建 1# &amp;#123;&amp;#125; 或者 dict() 2.字典的元素 12345# 字典中的元素是以键值对的形式（key:value）# key为不可变数据类型,必须唯一  字符串  数字  元组# value可以不唯一为任意数据类型# 元素与元素之间用“,”进行隔开info = &amp;#123;&quot;name&quot;: &quot;陈独秀&quot;, &quot;sex&quot;: &quot;男&quot;&amp;#125; 3.字">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-12-02T09:14:15.373Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="coderBlog">
-<meta name="twitter:description" content="字典（dict）知识点1.字典的创建 1# &amp;#123;&amp;#125; 或者 dict() 2.字典的元素 12345# 字典中的元素是以键值对的形式（key:value）# key为不可变数据类型,必须唯一  字符串  数字  元组# value可以不唯一为任意数据类型# 元素与元素之间用“,”进行隔开info = &amp;#123;&quot;name&quot;: &quot;陈独秀&quot;, &quot;sex&quot;: &quot;男&quot;&amp;#125; 3.字">
   
     <link rel="alternative" href="/atom.xml" title="coderBlog" type="application/atom+xml">
   
@@ -154,154 +150,169 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-字典知识点整理" class="article article-type-post " itemscope="" itemprop="blogPost">
-  <div class="article-inner">
+            
+  
+  
     
-    <div class="article-entry" itemprop="articleBody">
+    
       
-        <h2 id="字典（dict）知识点"><a href="#字典（dict）知识点" class="headerlink" title="字典（dict）知识点"></a>字典（dict）知识点</h2><p>1.字典的创建</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># &#123;&#125; 或者 dict()</span></span><br></pre></td></tr></table></figure>
-<p>2.字典的元素</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 字典中的元素是以键值对的形式（key:value）</span></span><br><span class="line"><span class="comment"># key为不可变数据类型,必须唯一  字符串  数字  元组</span></span><br><span class="line"><span class="comment"># value可以不唯一为任意数据类型</span></span><br><span class="line"><span class="comment"># 元素与元素之间用“,”进行隔开</span></span><br><span class="line">info = &#123;<span class="string">"name"</span>: <span class="string">"陈独秀"</span>, <span class="string">"sex"</span>: <span class="string">"男"</span>&#125;</span><br></pre></td></tr></table></figure>
-<p>3.字典的元素访问</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 访问字典中存在的键</span></span><br><span class="line">字典名[key的名]   或   字典名.get(key的名)</span><br><span class="line"><span class="comment"># 访问字典中不存在的键</span></span><br><span class="line">字典名.get(key的名)  返回：<span class="keyword">None</span> </span><br><span class="line"><span class="comment"># get()可以给字典中不存在的键赋值</span></span><br><span class="line">字典名.get(key的名, 值)</span><br></pre></td></tr></table></figure>
-<p>4.字典的基本操作</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 增删改查  其他</span></span><br><span class="line"><span class="comment"># 增</span></span><br><span class="line">字典名[新的键名] = 新的值</span><br><span class="line"><span class="comment"># 删</span></span><br><span class="line"><span class="keyword">del</span>  clear()</span><br><span class="line"><span class="comment"># 改</span></span><br><span class="line">字典名[键的名字] = 新的值</span><br><span class="line"><span class="comment"># 查</span></span><br><span class="line">字典名[键的名字]</span><br><span class="line"><span class="comment"># 其他</span></span><br><span class="line">len()  keys()  values()   items()</span><br></pre></td></tr></table></figure>
-<p>5.遍历</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 遍历key</span></span><br><span class="line"><span class="comment"># 遍历value</span></span><br><span class="line"><span class="comment"># 遍历元素</span></span><br><span class="line"><span class="comment"># 遍历key and value</span></span><br></pre></td></tr></table></figure>
-
       
-
-      
-        <div class="page-reward">
-          <a href="javascript:;" class="page-reward-btn tooltip-top">
-            <div class="tooltip tooltip-east">
-            <span class="tooltip-item">
-              赏
-            </span>
-            <span class="tooltip-content">
-              <span class="tooltip-text">
-                <span class="tooltip-inner">
-                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
-                  <div class="reward-box">
-                    
-                    
-                  </div>
-                </span>
-              </span>
-            </span>
-          </div>
-          </a>
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2018" class="archive-year">2018</a>
         </div>
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-
-      
-        
-<div class="share-btn share-icons tooltip-left">
-  <div class="tooltip tooltip-east">
-    <span class="tooltip-item">
-      <a href="javascript:;" class="share-sns share-outer">
-        <i class="icon icon-share"></i>
-      </a>
-    </span>
-    <span class="tooltip-content">
-      <div class="share-wrap">
-        <div class="share-icons">
-          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
-            <i class="icon icon-weibo"></i>
-          </a>
-          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
-            <i class="icon icon-weixin"></i>
-          </a>
-          <a class="qq share-sns" href="javascript:;" data-type="qq">
-            <i class="icon icon-qq"></i>
-          </a>
-          <a class="douban share-sns" href="javascript:;" data-type="douban">
-            <i class="icon icon-douban"></i>
-          </a>
-          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
-            <i class="icon icon-qzone"></i>
-          </a>
-          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
-            <i class="icon icon-facebook"></i>
-          </a>
-          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
-            <i class="icon icon-twitter"></i>
-          </a>
-          <a class="google share-sns" href="javascript:;" data-type="google">
-            <i class="icon icon-google"></i>
-          </a>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2018/09/01/元组知识点整理/" class="archive-article-date">
+  	<time datetime="2018-09-01T13:34:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-09-01</time>
+</a>
         </div>
-      </div>
-    </span>
-  </div>
-</div>
+    	 
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2018/09/01/元组知识点整理/">Python基本类型之元组</a>
+    </h1>
+  
 
-<div class="page-modal wx-share js-wx-box">
-    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2018/12/02/字典知识点整理/" alt="微信分享二维码">
-    </div>
-</div>
+        <div class="article-info info-on-right">
+          
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
+        		</li>
+      		
+		</ul>
+	</div>
 
-<div class="mask js-mask"></div>
-      
-      <div class="clearfix"></div>
-    </div>
+          
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Python//" class="article-tag-list-link color2">Python</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+        </div>
+        <div class="clearfix"></div>
+    </header>
   </div>
 </article>
-
   
-<nav id="article-nav">
-  
-    <a href="/2018/12/04/hello-world/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          Hello World
-        
-      </div>
-    </a>
-  
-  
-</nav>
-
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
+    
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2018/09/01/列表知识点整理/" class="archive-article-date">
+  	<time datetime="2018-09-01T13:34:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-09-01</time>
+</a>
         </div>
-        
-        
-    </div>
-</aside>
-
-
-
+    	 
   
-  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2018/09/01/列表知识点整理/">Python基本类型之列表</a>
+    </h1>
   
 
+        <div class="article-info info-on-right">
+          
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+          
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Python//" class="article-tag-list-link color2">Python</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+        </div>
+        <div class="clearfix"></div>
+    </header>
+  </div>
+</article>
+  
+    
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2018/09/01/字典知识点整理/" class="archive-article-date">
+  	<time datetime="2018-09-01T13:34:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-09-01</time>
+</a>
+        </div>
+    	 
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2018/09/01/字典知识点整理/">Python基本类型之字典</a>
+    </h1>
   
 
+        <div class="article-info info-on-right">
+          
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+          
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Python//" class="article-tag-list-link color2">Python</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+        </div>
+        <div class="clearfix"></div>
+    </header>
+  </div>
+</article>
+  
+  
+    </div></section>
   
 
-  
+    
 
 
           </div>
@@ -324,8 +335,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: true,
-		isArchive: false,
+		isPost: false,
+		isArchive: true,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
@@ -392,6 +403,18 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
             <input type="checkbox" q-on="click:toggleTag(e)" q-attr="checked:showTags">
           </label>
           <ul class="article-tag-list" q-show="showTags">
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">java</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">servlet</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Python</a>
+              </li>
             
             <div class="clearfix"></div>
           </ul>

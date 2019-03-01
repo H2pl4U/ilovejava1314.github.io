@@ -6,19 +6,15 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>coderBlog</title>
+  <title>Category: Java | coderBlog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="元组知识点整理1.元组的创建 123# 两种方式tup1 = ()tup2 = tuple() 2.元组的数据储存 12345# 字符串，number，列表，布尔值，元组等tup3 = (&quot;&quot;, 60, [1, 2, 3], True, ())# 怎么创建一个有且只有一个元素的元组# 一定不要少了“  ,  ”tup4 = (元素,) 3.元组的数据访问 12345# 使用下标（索引）访问tup">
-<meta property="og:type" content="article">
+  <meta property="og:type" content="website">
 <meta property="og:title" content="coderBlog">
-<meta property="og:url" content="http://yoursite.com/2018/12/04/元组知识点整理/index.html">
+<meta property="og:url" content="http://yoursite.com/categories/Java/index.html">
 <meta property="og:site_name" content="coderBlog">
-<meta property="og:description" content="元组知识点整理1.元组的创建 123# 两种方式tup1 = ()tup2 = tuple() 2.元组的数据储存 12345# 字符串，number，列表，布尔值，元组等tup3 = (&quot;&quot;, 60, [1, 2, 3], True, ())# 怎么创建一个有且只有一个元素的元组# 一定不要少了“  ,  ”tup4 = (元素,) 3.元组的数据访问 12345# 使用下标（索引）访问tup">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-12-04T13:38:56.906Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="coderBlog">
-<meta name="twitter:description" content="元组知识点整理1.元组的创建 123# 两种方式tup1 = ()tup2 = tuple() 2.元组的数据储存 12345# 字符串，number，列表，布尔值，元组等tup3 = (&quot;&quot;, 60, [1, 2, 3], True, ())# 怎么创建一个有且只有一个元素的元组# 一定不要少了“  ,  ”tup4 = (元素,) 3.元组的数据访问 12345# 使用下标（索引）访问tup">
   
     <link rel="alternative" href="/atom.xml" title="coderBlog" type="application/atom+xml">
   
@@ -154,159 +150,75 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-元组知识点整理" class="article article-type-post " itemscope="" itemprop="blogPost">
-  <div class="article-inner">
+            
+  
+  
     
-    <div class="article-entry" itemprop="articleBody">
+    
       
-        <h3 id="元组知识点整理"><a href="#元组知识点整理" class="headerlink" title="元组知识点整理"></a>元组知识点整理</h3><p>1.元组的创建</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 两种方式</span></span><br><span class="line">tup1 = ()</span><br><span class="line">tup2 = tuple()</span><br></pre></td></tr></table></figure>
-<p>2.元组的数据储存</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 字符串，number，列表，布尔值，元组等</span></span><br><span class="line">tup3 = (<span class="string">""</span>, <span class="number">60</span>, [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>], <span class="keyword">True</span>, ())</span><br><span class="line"><span class="comment"># 怎么创建一个有且只有一个元素的元组</span></span><br><span class="line"><span class="comment"># 一定不要少了“  ,  ”</span></span><br><span class="line">tup4 = (元素,)</span><br></pre></td></tr></table></figure>
-<p>3.元组的数据访问</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 使用下标（索引）访问</span></span><br><span class="line">tup = (<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>)</span><br><span class="line">tup[<span class="number">3</span>]</span><br><span class="line"><span class="comment"># 元组的切片使用</span></span><br><span class="line">tup[<span class="number">1</span>:]</span><br></pre></td></tr></table></figure>
-<p>4.元组的拆包</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">1.使用“*”进行拆包</span></span><br><span class="line"><span class="string">2.定义和元组元素个数相同变量</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line">a = (<span class="string">"a"</span>, <span class="string">"b"</span>, <span class="string">"c"</span>)</span><br><span class="line">print(*a)</span><br><span class="line">one, two, three, four = a</span><br></pre></td></tr></table></figure>
-<p>5.元素的基本操作</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 不可变数据类型</span></span><br><span class="line"><span class="comment"># 查  in  not in  count  index</span></span><br></pre></td></tr></table></figure>
-
       
-
-      
-        <div class="page-reward">
-          <a href="javascript:;" class="page-reward-btn tooltip-top">
-            <div class="tooltip tooltip-east">
-            <span class="tooltip-item">
-              赏
-            </span>
-            <span class="tooltip-content">
-              <span class="tooltip-text">
-                <span class="tooltip-inner">
-                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
-                  <div class="reward-box">
-                    
-                    
-                  </div>
-                </span>
-              </span>
-            </span>
-          </div>
-          </a>
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2018" class="archive-year">2018</a>
         </div>
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-
-      
-        
-<div class="share-btn share-icons tooltip-left">
-  <div class="tooltip tooltip-east">
-    <span class="tooltip-item">
-      <a href="javascript:;" class="share-sns share-outer">
-        <i class="icon icon-share"></i>
-      </a>
-    </span>
-    <span class="tooltip-content">
-      <div class="share-wrap">
-        <div class="share-icons">
-          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
-            <i class="icon icon-weibo"></i>
-          </a>
-          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
-            <i class="icon icon-weixin"></i>
-          </a>
-          <a class="qq share-sns" href="javascript:;" data-type="qq">
-            <i class="icon icon-qq"></i>
-          </a>
-          <a class="douban share-sns" href="javascript:;" data-type="douban">
-            <i class="icon icon-douban"></i>
-          </a>
-          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
-            <i class="icon icon-qzone"></i>
-          </a>
-          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
-            <i class="icon icon-facebook"></i>
-          </a>
-          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
-            <i class="icon icon-twitter"></i>
-          </a>
-          <a class="google share-sns" href="javascript:;" data-type="google">
-            <i class="icon icon-google"></i>
-          </a>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2018/11/01/Servlet之登陆验证/" class="archive-article-date">
+  	<time datetime="2018-11-01T13:01:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-01</time>
+</a>
         </div>
-      </div>
-    </span>
-  </div>
-</div>
+    	 
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2018/11/01/Servlet之登陆验证/">Servlet之登陆验证</a>
+    </h1>
+  
 
-<div class="page-modal wx-share js-wx-box">
-    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2018/12/04/元组知识点整理/" alt="微信分享二维码">
-    </div>
-</div>
+        <div class="article-info info-on-right">
+          
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">servlet</a>
+        		</li>
+      		
+		</ul>
+	</div>
 
-<div class="mask js-mask"></div>
-      
-      <div class="clearfix"></div>
-    </div>
+          
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Java//" class="article-tag-list-link color5">Java</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+        </div>
+        <div class="clearfix"></div>
+    </header>
   </div>
 </article>
-
-  
-<nav id="article-nav">
-  
-    <a href="/2018/12/13/列表知识点整理/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          (no title)
-        
-      </div>
-    </a>
   
   
-    <a href="/2018/12/04/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Hello World</div>
-      <i class="icon-circle-right"></i>
-    </a>
-  
-</nav>
-
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-  
-  
+    </div></section>
   
 
-  
-
-  
-
-  
+    
 
 
           </div>
@@ -329,10 +241,10 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: true,
+		isPost: false,
 		isArchive: false,
 		isTag: false,
-		isCategory: false,
+		isCategory: true,
 		open_in_new: false,
 		toc_hide_index: true,
 		root: "/",
@@ -397,6 +309,18 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
             <input type="checkbox" q-on="click:toggleTag(e)" q-attr="checked:showTags">
           </label>
           <ul class="article-tag-list" q-show="showTags">
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">java</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">servlet</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Python</a>
+              </li>
             
             <div class="clearfix"></div>
           </ul>
