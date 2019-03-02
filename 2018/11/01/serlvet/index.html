@@ -6,15 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives: 2018/11 | coderBlog</title>
+  <title>Servlet总结 | coderBlog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="coderBlog">
-<meta property="og:url" content="http://yoursite.com/archives/2018/11/index.html">
+  <meta name="description" content="serlvet:servlet的体系结构:(了解) Servlet:接口​    |GenericServlet:抽象类​    |HttpServlet:抽象类​    |自定义servlet servlet常用方法:​    void init(ServletConfig config):初始化​    void service(ServletRequest request,ServletRe">
+<meta name="keywords" content="servlet,案例">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Servlet总结">
+<meta property="og:url" content="http://yoursite.com/2018/11/01/serlvet/index.html">
 <meta property="og:site_name" content="coderBlog">
+<meta property="og:description" content="serlvet:servlet的体系结构:(了解) Servlet:接口​    |GenericServlet:抽象类​    |HttpServlet:抽象类​    |自定义servlet servlet常用方法:​    void init(ServletConfig config):初始化​    void service(ServletRequest request,ServletRe">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-03-02T16:50:14.607Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="coderBlog">
+<meta name="twitter:title" content="Servlet总结">
+<meta name="twitter:description" content="serlvet:servlet的体系结构:(了解) Servlet:接口​    |GenericServlet:抽象类​    |HttpServlet:抽象类​    |自定义servlet servlet常用方法:​    void init(ServletConfig config):初始化​    void service(ServletRequest request,ServletRe">
   
     <link rel="alternative" href="/atom.xml" title="coderBlog" type="application/atom+xml">
   
@@ -150,36 +155,97 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-serlvet" class="article article-type-post " itemscope="" itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Servlet总结
+    </h1>
+  
+
+        
+        <a href="/2018/11/01/serlvet/" class="archive-article-date">
+  	<time datetime="2018-11-01T13:01:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-01</time>
+</a>
+        
+      </header>
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="serlvet"><a href="#serlvet" class="headerlink" title="serlvet:"></a>serlvet:</h2><p>servlet的体系结构:(了解)</p>
+<p>Servlet:接口<br>​    |<br>GenericServlet:抽象类<br>​    |<br>HttpServlet:抽象类<br>​    |<br>自定义servlet</p>
+<p>servlet常用方法:<br>​    void init(ServletConfig config):初始化<br>​    void service(ServletRequest request,ServletResponse response):服务 处理业务逻辑<br>​    void destroy():销毁<br>​<br>​    ServletConfig getServletConfig() :获取当前servlet的配置对象</p>
+<p>GenericServlet常用方法:<br>​    除了service方法没有显示,其他都实现了<br>​    空参的Init() 若我们自己想对servlet进行初始化操作,重写这个init()方法即可</p>
+<p>HttpServlet常用方法：<br>​    service做了实现，把参数强转，调用了重载的service方法<br>​        重载的service方法获取请求的方式,根据请求方式的不同调用相应doXxx()方法<br>​    doGet和doPost方法</p>
+<h3 id="servlet生命周期-★★★"><a href="#servlet生命周期-★★★" class="headerlink" title="servlet生命周期 ★★★"></a>servlet生命周期 ★★★</h3><p>void init(ServletConfig config):初始化</p>
+<ul>
+<li>初始化方法</li>
+<li>执行者:服务器</li>
+<li>执行次数:一次</li>
+<li>执行时机:默认第一次访问的时候<br>void service(ServletRequest request,ServletResponse response):服务 处理业务逻辑</li>
+<li>服务</li>
+<li>执行者:服务器</li>
+<li>执行次数:请求一次执行一次</li>
+<li>执行时机:请求来的时候<br>void destroy():销毁</li>
+<li>销毁</li>
+<li>执行者:服务器</li>
+<li>执行次数:只执行一次</li>
+<li><p>执行时机:当servlet被移除的时候或者服务器正常关闭的时候</p>
+<p>serlvet是单实例多线程(面试)<br><strong>默认第一次访问的时候,服务器创建servlet,并调用init实现初始化操作.并调用一次service方法</strong><br><strong>每当请求来的时候,服务器创建一个线程,调用service方法执行自己的业务逻辑</strong><br><strong>当serlvet被移除的时候服务器正常关闭的时候,服务器调用servlet的destroy方法实现销毁操作.</strong></p>
+</li>
+</ul>
+<p>url-pattern的配置:★</p>
+<p>方式1:完全匹配  必须以”/“开始 例如: /hello /a/b/c<br>方式2:目录匹配  必须”/“开始  以”<em>“结束   例如: /a/</em>  /<em><br>方式3:后缀名匹配 以”</em>“开始 以字符结尾 例如: <em>.jsp  </em>.do  *.action</p>
+<p>优先级:<br>​    完全匹配&gt;目录匹配&gt;后缀名匹配</p>
+<p>有如下的一些映射关系：</p>
+<p>​    Servlet1 映射到 /abc/<em><br>​    Servlet2 映射到 /</em><br>​    Servlet3 映射到 /abc<br>​    Servlet4 映射到 <em>.do<br>问题:<br>当请求URL为“/abc/a.html”，“/abc/</em>”和“/<em>”都匹配，哪个servlet响应<br>​    Servlet引擎将调用Servlet1。<br>当请求URL为“/abc”时，“/</em>”和“/abc”都匹配，哪个servlet响应<br>​    Servlet引擎将调用Servlet3。<br>当请求URL为“/abc/a.do”时，“/abc/<em>”和“</em>.do”都匹配，哪个servlet响应<br>​    Servlet引擎将调用Servlet1。<br>当请求URL为“/a.do”时，“/<em>”和“</em>.do”都匹配，哪个servlet响应<br>​    Servlet引擎将调用Servlet2.<br>当请求URL为“/xxx/yyy/a.do”时，“/<em>”和“</em>.do”都匹配，哪个servlet响应<br>​    Servlet引擎将调用Servlet2。</p>
+<p>在servlet标签有一个子标签 load-on-startup</p>
+<p>作用:用来修改servlet的初始化时机<br>取值:正整数  值越大优先级越低</p>
+<p>当我们的配置文件里面没有指定配置的话,会查找tomcat的web.xml,</p>
+<p>若请求我们自己的项目处理不了,tomcat的默认的servlet会帮我们处理信息</p>
+<p>路径的写法:</p>
+<p>相对路径:<br>​    当前路径    ./ 或者 什么都不写<br>​    上一级路径 ../<br>绝对路径:(我们使用)<br>​    带主机和协议的绝对路径(访问站外资源)<br>​        <a href="http://www.baidu.com/xxxx" target="_blank" rel="noopener">http://www.baidu.com/xxxx</a><br>​        <a href="http://localhost:8080/project/hello" target="_blank" rel="noopener">http://localhost:8080/project/hello</a><br>​    不带主机和协议的绝对路径<br>​        /day09/hello(经常使用)</p>
+<p>Servlet案例之当我们登录失败,提示”用户名密码不匹配”,3秒以后跳转到登录页面</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//初始化登陆次数</span></span><br><span class="line"><span class="meta">@Override</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">()</span> <span class="keyword">throws</span> ServletException </span>&#123;</span><br><span class="line">	<span class="comment">//获取全局管理者</span></span><br><span class="line">	ServletContext context = getServletContext();</span><br><span class="line">	<span class="comment">//初始化次数</span></span><br><span class="line">	context.setAttribute(<span class="string">"count"</span>, <span class="number">0</span>);</span><br><span class="line">	System.out.println(<span class="string">"初始化次数成功"</span>);</span><br><span class="line">&#125;</span><br><span class="line">	<span class="comment">//1.设置编码</span></span><br><span class="line">	resp.setContentType(<span class="string">"text/html;charset=utf-8"</span>);</span><br><span class="line">	<span class="comment">//2.接收用户名和密码</span></span><br><span class="line">	String username = req.getParameter(<span class="string">"username"</span>);</span><br><span class="line">	String password = req.getParameter(<span class="string">"password"</span>);</span><br><span class="line">	<span class="comment">//3.调用userservice里的login(username,password)方法 返回值User user;</span></span><br><span class="line">	User user;</span><br><span class="line">	<span class="keyword">try</span> &#123;</span><br><span class="line">		user = <span class="keyword">new</span> UserService().login(username,password);</span><br><span class="line">	&#125; <span class="keyword">catch</span> (SQLException e) &#123;</span><br><span class="line">		e.printStackTrace();</span><br><span class="line">		<span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(<span class="string">"数据库连接失败"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//判断user是否为空</span></span><br><span class="line">	<span class="keyword">if</span>(user==<span class="keyword">null</span>) &#123;</span><br><span class="line">		resp.getWriter().print(<span class="string">"用户不存在,3秒后自动跳转。。。"</span>);</span><br><span class="line">		resp.setHeader(<span class="string">"refresh"</span>, <span class="string">"3;url=/servlet/login.htm"</span>);</span><br><span class="line">	&#125;<span class="keyword">else</span> &#123;</span><br><span class="line">		resp.getWriter().print(user.getUsername()+<span class="string">",欢迎回来"</span>);</span><br><span class="line">		<span class="comment">//获取全局管理者</span></span><br><span class="line">		ServletContext context=<span class="keyword">this</span>.getServletContext();</span><br><span class="line">		<span class="comment">//获取总次数</span></span><br><span class="line">		Integer count = (Integer) context.getAttribute(<span class="string">"count"</span>);</span><br><span class="line">		<span class="comment">//次数+1</span></span><br><span class="line">		count++;</span><br><span class="line">		<span class="comment">//将次数再次放入域对象中</span></span><br><span class="line">		context.setAttribute(<span class="string">"count"</span>, count);</span><br></pre></td></tr></table></figure>
+<h3 id="ServletConfig"><a href="#ServletConfig" class="headerlink" title="ServletConfig:"></a>ServletConfig:</h3><p>servlet配置对象<br>作用:<br>​    1.获取当前servlet的名称<br>​    2.获取当前servlet的初始化参数<br>​    3.获取全局管理者<br>方法:<br>​    String getServletName():获取当前servlet的名称(web.xml配置的servlet-name)<br>​<br>​    String  getInitParameter(String key):通过名称获取指定的参数值<br>​    Enumeration getInitParameterNames() :获取所有的参数名称<br>​        初始化参数是放在 web.xml文件<br>​            servlet标签下子标签 init-param<br>​<br>​    ★getServletContext():获取全局管理者<br>servletconfig是由服务器创建的,在创建servlet的同时也创建了它,通过servlet的init(ServletConfig config)将config对象<br>传递给servlet,由servlet的getServletConfig方法获取</p>
+<h3 id="ServletContext"><a href="#ServletContext" class="headerlink" title="ServletContext:"></a>ServletContext:</h3><p>上下文(全局管理者)<br>一个项目的引用.代表了当前项目.<br>当项目启动的时候,服务器为每一个web项目创建一个servletcontext对象.<br>当项目被移除的时候或者服务器关闭的时候servletcontext销毁<br>作用:<br>​    1.获取全局的初始化参数<br>​    2.共享资源(xxxAttribute)<br>​    3.获取文件资源<br>​    4.其他操作<br>获取servletcontext:<br>​    方式1:了解<br>​        getServletConfig().getServletContext()<br>​    方式2:<br>​        getServletContext()<br>常用方法:<br>​        1.String  getInitParameter(String key):通过名称获取指定的参数值<br>​           Enumeration getInitParameterNames() :获取所有的参数名称<br>​          在根标签下有一个 context-param子标签 用来存放初始化参数</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">context-param</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">param-name</span>&gt;</span>encoding<span class="tag">&lt;/<span class="name">param-name</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">param-value</span>&gt;</span>utf-8<span class="tag">&lt;/<span class="name">param-value</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">context-param</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>​    2.xxxAttribute<br>​    3. String getRealPath(String path):获取文件部署到tomcat上的真实路径(带tomcat路径)<br>​        getRealPath(“/“):D:\javaTools\apache-tomcat-7.0.52\webapps\project\<br>​        InputStream getResourceAsStream(String path):以流的形式返回一个文件<br>​    4.获取文件的mime类型  大类型/小类型<br>​        String getMimeType(String 文件名称)</p>
+<h3 id="域对象-★★★"><a href="#域对象-★★★" class="headerlink" title="域对象:★★★"></a>域对象:★★★</h3><p>servletcontext<br>当成map集合<br>​    常用方法:<br>​        xxxAttribute()<br>servletcontext创建和销毁:<br>​    当项目启动的时候,服务器为每一个web项目创建一个servletcontext对象.<br>​    当项目被移除的时候或者服务器关闭的时候servletcontext销毁<br>存放:<br>​    共享的数据</p>
+<p>获取文件的路径:</p>
+<p>通过类加载器获取文件:2.txt 放在classes目录下无论是java项目还是web项目都可以<br>​    类.class.getClassLoader().getResource(“2.txt”).getPath()</p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2018" class="archive-year">2018</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/11/04/cookieAndSession/" class="archive-article-date">
-  	<time datetime="2018-11-04T12:41:47.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-04</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/11/04/cookieAndSession/">Cookie和Session</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -195,7 +261,7 @@
 		</ul>
 	</div>
 
-          
+      
 	<div class="article-category tagcloud">
 		<i class="icon-book icon"></i>
 		<ul class="article-tag-list">
@@ -208,233 +274,126 @@
 	</div>
 
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2018/11/01/serlvet/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/11/01/Servlet之登陆验证/" class="archive-article-date">
-  	<time datetime="2018-11-01T13:01:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-01</time>
-</a>
+<nav id="article-nav">
+  
+    <a href="/2018/11/01/java事务总结/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          MVC思想和Java及数据库中的事务
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/11/01/jsp_el_jstl/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">JSP_EL_JSTL参考</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/11/01/Servlet之登陆验证/">Servlet之登陆验证</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">servlet</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">案例</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Java//" class="article-tag-list-link color5">Java</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#serlvet"><span class="toc-number">1.</span> <span class="toc-text">serlvet:</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#servlet生命周期-★★★"><span class="toc-number">1.1.</span> <span class="toc-text">servlet生命周期 ★★★</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ServletConfig"><span class="toc-number">1.2.</span> <span class="toc-text">ServletConfig:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ServletContext"><span class="toc-number">1.3.</span> <span class="toc-text">ServletContext:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#域对象-★★★"><span class="toc-number">1.4.</span> <span class="toc-text">域对象:★★★</span></a></li></ol></li></ol>
+                    </div>
+                </span>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/11/01/java事务总结/" class="archive-article-date">
-  	<time datetime="2018-11-01T13:01:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-01</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/11/01/java事务总结/">MVC思想和Java及数据库中的事务</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">数据库</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">事务</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">MVC</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Java//" class="article-tag-list-link color5">Java</a>
-        		</li>
-      		
-		</ul>
-	</div>
+        
+    </div>
+</aside>
 
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/11/01/serlvet/" class="archive-article-date">
-  	<time datetime="2018-11-01T13:01:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-01</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/11/01/serlvet/">Servlet总结</a>
-    </h1>
-  
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">servlet</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">案例</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Java//" class="article-tag-list-link color5">Java</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/11/01/jsp_el_jstl/" class="archive-article-date">
-  	<time datetime="2018-11-01T13:01:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-01</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/11/01/jsp_el_jstl/">JSP_EL_JSTL参考</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">servlet</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">jsp</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Java//" class="article-tag-list-link color5">Java</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
   
-    </div></section>
   
 
-    
+  
+
+  
+
+  
 
 
           </div>
@@ -457,8 +416,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
