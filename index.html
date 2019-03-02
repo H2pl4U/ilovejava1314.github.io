@@ -249,6 +249,171 @@
 
 
   
+    <article id="post-java事务总结" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/11/01/java事务总结/">MVC思想和Java及数据库中的事务</a>
+    </h1>
+  
+
+        
+        <a href="/2018/11/01/java事务总结/" class="archive-article-date">
+  	<time datetime="2018-11-01T13:01:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-01</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>mvc思想：</p>
+<pre><code>servlet--&gt;缺点:生成html内容太麻烦
+    |
+jsp---&gt;缺点:阅读起来不方便,维护比较困难
+    |
+jsp+javabean:
+        jsp的model1:
+            jsp:接受请求,展示数据
+            javabean:和数据打交道 
+    |
+jsp+javabean+servlet
+        jsp的model2:
+            jsp:展示数据
+            javabean:和数据打交道
+            servlet:接受请求,处理业务逻辑
+        就是MVC思想的体现
+</code></pre><p>MVC:<br>    将业务逻辑,代码,显示相分离的一种思想<br>    M:model 模型 作用:主要是封装数据,封装对数据的访问<br>    V:view     视图 作用:主要是用来展示数据 一般是jsp担任的<br>    C:ctrl    控制 作用:接受请求,找到相应的javabean完成业务逻辑<br>分层:javaee的三层架构</p>
+<pre><code>web
+    作用:
+        展示数据 ----jsp
+        -----servlet-------
+        接受请求
+        找到对应的service,调用方法 完成逻辑操作
+        信息生成或者页面跳转
+service 业务层
+    作用:
+        完成业务操作
+        调用dao
+dao(data access object 数据访问对象)
+    作用:
+        对数据库的curd操作
+</code></pre><p>jsp设计模式1 model1:(基本不用)</p>
+<figure class="highlight jsp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">javabean+jsp</span><br><span class="line">javabean在model1使用(了解)</span><br><span class="line">	&lt;!-- 接受值 --&gt;</span><br><span class="line">	&lt;jsp:useBean id="u" class="com.itheima.domain.User"&gt;&lt;/jsp:useBean&gt;&lt;!--相当于  User u=new User()--&gt;</span><br><span class="line">	&lt;jsp:setProperty property=<span class="string">"name"</span> name=<span class="string">"u"</span>/&gt;&lt;!--相当于  u.setName(...)--&gt;</span><br><span class="line">	&lt;jsp:setProperty property=<span class="string">"password"</span> name=<span class="string">"u"</span>/&gt;</span><br><span class="line"></span><br><span class="line">	&lt;!-- 打印值--&gt;</span><br><span class="line">	&lt;jsp:getProperty property=<span class="string">"name"</span> name=<span class="string">"u"</span>/&gt;</span><br></pre></td></tr></table></figure>
+<p>javabean在model2中使用</p>
+<pre><code>BeanUtils:可以看作封装数据一个工具类
+    使用步骤:
+        1.导入jar包
+        2.使用BeanUtils.populate(Object bean,Map map);
+</code></pre><p>事务:指一件完整的事情,包含多个操作单元,这些操作要么全部成功,要么全部失败.例如:转账，包含转出操作和转入操作.</p>
+<pre><code>mysql中的事务:
+mysql中事务默认是自动提交,一条sql语句就是一个事务.
+开启手动事务方式
+    方式1:关闭自动事务.(了解)
+        set autocommit = off;
+        show variables like &apos;%autocommit%&apos;;  //查看自动提交是否开启
+    方式2:手动开启一个事务.(理解)
+        start transaction;-- 开启一个事务
+        commit;-- 事务提交
+        rollback;-- 事务回滚
+扩展:
+    oracle中事务默认是手动的,必须手动提交才可以.
+</code></pre><p>java中的事务:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Connection接口的api:★</span><br><span class="line">	setAutoCommit(<span class="keyword">false</span>);<span class="comment">//手动开启事务</span></span><br><span class="line">	commit():事务提交</span><br><span class="line">	rollback():事务回滚</span><br><span class="line"></span><br><span class="line">扩展:了解 Savepoint还原点</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">rollback</span><span class="params">(Savepoint savepoint)</span> :还原到那个还原点</span></span><br><span class="line"><span class="function">	Savepoint <span class="title">setSavepoint</span><span class="params">()</span> :设置还原点</span></span><br></pre></td></tr></table></figure>
+<p>保证所有的操作在一个事务中,必须保证使用的是同一个连接,在service层我们获取了连接,开启了事务.如何dao层使用此连接呢?</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">方法<span class="number">1</span>:</span><br><span class="line">	向下传递参数.注意连接应该在service释放</span><br><span class="line">方法<span class="number">2</span>:</span><br><span class="line">	可以将connection对象绑定当前线程上</span><br><span class="line">	jdk中有一个ThreadLocal类,</span><br><span class="line">	ThreadLocal 实例通常是类中的 <span class="keyword">private</span> <span class="keyword">static</span> 字段，</span><br><span class="line">	它们希望将状态与某一个线程（例如，用户 ID 或事务 ID）相关联。 </span><br><span class="line">ThreadLocal的方法:</span><br><span class="line">	构造:</span><br><span class="line">	<span class="keyword">new</span> ThreadLocal()</span><br><span class="line">	set(Object value):将内容和当前线程绑定</span><br><span class="line">	<span class="function">Object <span class="title">get</span><span class="params">()</span>:获取和迪昂前线程绑定的内容</span></span><br><span class="line"><span class="function">	<span class="title">remove</span><span class="params">()</span>:将当前线程和内容解绑</span></span><br><span class="line"><span class="function">内部维护了map集合</span></span><br><span class="line"><span class="function">	map.<span class="title">put</span><span class="params">(当前线程,内容)</span></span>;</span><br><span class="line">	map.get(当前线程)</span><br><span class="line">	map.remove(当前线程)</span><br><span class="line">DButils:</span><br><span class="line"><span class="number">1</span>.创建queryrunner</span><br><span class="line"><span class="number">2</span>.编写sql</span><br><span class="line"><span class="number">3</span>.执行sql</span><br><span class="line">QueryRunner:</span><br><span class="line">构造:</span><br><span class="line">	<span class="keyword">new</span> QueryRunner(DataSource ds):自动事务</span><br><span class="line">	<span class="keyword">new</span> QueryRunner():手动事务</span><br><span class="line">常用方法:</span><br><span class="line">	update(Connection conn,String sql,Object ... params):执行的cud操作</span><br><span class="line">	query(Connection conn....):执行查询操作</span><br><span class="line">注意:</span><br><span class="line">	一旦使用手动事务,调用方法的时候都需要手动传入connection,并且需要手动关闭连接</span><br></pre></td></tr></table></figure>
+<p>事务总结:</p>
+<pre><code>事务的特性:★★★
+    ACID
+    原子性:事务里面的操作单元不可切割,要么全部成功,要么全部失败
+    一致性:事务执行前后,业务状态和其他业务状态保持一致.
+    隔离性:一个事务执行的时候最好不要受到其他事务的影响
+    持久性:一旦事务提交或者回滚.这个状态都要持久化到数据库中
+不考虑隔离性会出现的读问题★★
+    脏读:在一个事务中读取到另一个事务没有提交的数据
+    不可重复读:在一个事务中,两次查询的结果不一致(针对的update操作)
+    虚读(幻读):在一个事务中,两次查询的结果不一致(针对的insert操作)
+通过设置数据库的隔离级别来避免上面的问题(理解)
+    read uncommitted      读未提交    上面的三个问题都会出现
+    read committed      读已提交    可以避免脏读的发生
+    repeatable read        可重复读    可以避免脏读和不可重复读的发生
+    serializable        串行化        可以避免所有的问题
+</code></pre><p>拓展了解:</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">	演示脏读的发生:</span><br><span class="line">		将数据库的隔离级别设置成 读未提交</span><br><span class="line">			<span class="keyword">set</span> <span class="keyword">session</span> <span class="keyword">transaction</span> <span class="keyword">isolation</span> <span class="keyword">level</span> <span class="keyword">read</span> uncommitted;</span><br><span class="line">		查看数据库的隔离级别</span><br><span class="line">			<span class="keyword">select</span> @@tx_isolation;</span><br><span class="line">	避免脏读的发生,将隔离级别设置成  读已提交</span><br><span class="line">		<span class="keyword">set</span> <span class="keyword">session</span> <span class="keyword">transaction</span> <span class="keyword">isolation</span> <span class="keyword">level</span> <span class="keyword">read</span> committed;</span><br><span class="line">		不可避免不可重复读的发生.</span><br><span class="line">	</span><br><span class="line">	避免不可重复读的发生 经隔离级别设置成 可重复读</span><br><span class="line">		<span class="keyword">set</span> <span class="keyword">session</span> <span class="keyword">transaction</span> <span class="keyword">isolation</span> <span class="keyword">level</span>  repeatable <span class="keyword">read</span>;</span><br><span class="line">		</span><br><span class="line">	演示串行化 可以避免所有的问题</span><br><span class="line">		<span class="keyword">set</span> <span class="keyword">session</span> <span class="keyword">transaction</span> <span class="keyword">isolation</span> <span class="keyword">level</span>  <span class="keyword">serializable</span>;</span><br><span class="line">		锁表的操作.</span><br><span class="line">	</span><br><span class="line">四种隔离级别的效率</span><br><span class="line">	read uncommitted&gt;read committed&gt;repeatable read&gt;serializable</span><br><span class="line">四种隔离级别的安全性</span><br><span class="line">	read uncommitted&lt;read committed&lt;repeatable read&lt;serializable</span><br><span class="line">	</span><br><span class="line">开发中绝对不允许脏读发生.</span><br><span class="line">	mysql中默认级别:repeatable read</span><br><span class="line">	oracle中默认级别:read committed</span><br><span class="line"></span><br><span class="line">java中控制隔离级别:(了解)</span><br><span class="line">	Connection的api</span><br><span class="line">		void setTransactionIsolation(int level) </span><br><span class="line">			level是常量</span><br></pre></td></tr></table></figure>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">数据库</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">事务</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Java//" class="article-tag-list-link color5">Java</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/11/01/java事务总结/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-元组知识点整理" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
@@ -731,6 +896,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">Python</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">数据库</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">事务</a>
               </li>
             
             <div class="clearfix"></div>
