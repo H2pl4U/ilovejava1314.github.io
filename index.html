@@ -152,6 +152,138 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-ajax" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/12/04/ajax/">原生Ajax实现get/post请求和用户名判断案例</a>
+    </h1>
+  
+
+        
+        <a href="/2018/12/04/ajax/" class="archive-article-date">
+  	<time datetime="2018-12-04T12:31:25.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-12-04</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="ajax"><a href="#ajax" class="headerlink" title="ajax"></a>ajax</h2><p>异步JavaScript和XML,AJAX 是一种用于创建快速动态网页的技术。<br>通过在后台与服务器进行少量数据交换，AJAX 可以使网页实现异步更新。这意味着可以在不重新加载整个网页的情况下，对网页的某部分进行更新。传统的网页（不使用 AJAX）如果需要更新内容，必须重载整个网页页面。</p>
+<h3 id="ajax-api详解"><a href="#ajax-api详解" class="headerlink" title="ajax-api详解"></a>ajax-api详解</h3><ul>
+<li>常用属性:</li>
+</ul>
+<p>​    <strong>onreadystatechange</strong>:检测readyState状态改变的时候<br>​    <strong>readyState</strong>:ajax核心对象的状态<br>​        0:核心对象创建<br>​        1:调用了open方法<br>​        2:调用了send方法<br>​        3:部分响应已经生成(没有意思)<br>​        4:响应已经完成(使用的是这个状态)<br>​    <strong>status</strong>:状态码</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(xmlhttp.readyState==<span class="number">4</span> &amp;&amp; xmlhttp.status==<span class="number">200</span>)&#123;</span><br><span class="line">	<span class="comment">//判断ajax核心对象是否到达了响应已完成的状态且状态码是否正常</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>​    <strong>responseText</strong>:响应回来的文本</p>
+<ul>
+<li>常用方法:</li>
+</ul>
+<p>​    open(“请求方式”,”请求路径”[,”是否异步”]):设置请求的方式和请求的路径<br>​    send([“参数”]):发送请求 参数是请求方式为post的时候的参数<br>​    setRequestHeader(“content-type”,”form表单enctype属性”):设置post请求的参数的类型 必须放在send方法之前.</p>
+<h3 id="Ajax入门案例"><a href="#Ajax入门案例" class="headerlink" title="Ajax入门案例"></a>Ajax入门案例</h3><ul>
+<li><p>案例之使用原生ajax完成对get/post发送来的请求通过servlet响应后获取其响应文本</p>
+<ul>
+<li><p>编写get.jsp，在页面上添加一个submit按钮，在onClick事件中编写如下javascript代码:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">btnClick</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">	<span class="comment">//创建核心对象</span></span><br><span class="line">	xmlhttp = <span class="literal">null</span>;</span><br><span class="line">	<span class="keyword">if</span>(<span class="built_in">window</span>.XMLHttpRequest)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="comment">//Firefox Opera IE7 etc</span></span><br><span class="line">			xmlhttp = <span class="keyword">new</span> XMLHttpRequest();	</span><br><span class="line">		&#125;</span><br><span class="line">	<span class="keyword">else</span> <span class="keyword">if</span>(<span class="built_in">window</span>.ActiveXObject)&#123;</span><br><span class="line">			<span class="comment">//IE5 IE6</span></span><br><span class="line">			xmlhttp = <span class="keyword">new</span> ActiveXObject(<span class="string">"Microsoft.XMLHttp"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//编写回调函数</span></span><br><span class="line">	xmlhttp.onreadystatechange=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">		<span class="comment">//alert(xmlhttp.readyState);</span></span><br><span class="line">		<span class="keyword">if</span>(xmlhttp.readyState==<span class="number">4</span> &amp;&amp; xmlhttp.status==<span class="number">200</span>)&#123;</span><br><span class="line">			alert(xmlhttp.responseText);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//open 设置请求方式和请求路径</span></span><br><span class="line">	xmlhttp.open(<span class="string">"get"</span>,<span class="string">"$&#123;pageContext.request.contextPath &#125;/ajax?name=刘强东"</span>);</span><br><span class="line">	<span class="comment">//send发送请求</span></span><br><span class="line">	xmlhttp.send();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>编写ajaxServlet（get）：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//获取name  设置编码</span></span><br><span class="line">	String name = request.getParameter(<span class="string">"name"</span>);</span><br><span class="line">	name=<span class="keyword">new</span> String(name.getBytes(<span class="string">"iso8859-1"</span>), <span class="string">"utf-8"</span>);</span><br><span class="line">	System.out.println(name);</span><br><span class="line">	response.setContentType(<span class="string">"text/html;charset=utf-8"</span>);</span><br><span class="line">	response.getWriter().print(<span class="string">"get姓名:"</span>+name);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>同理针对post请求仅修改如下代码即可:</p>
+<ul>
+<li><p>jsp的JavaScript代码中修改open设置请求方式和请求路径,并设置请求头，具体如下:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//open 设置请求方式和请求路径</span></span><br><span class="line">xmlhttp.open(<span class="string">"post"</span>,<span class="string">"$&#123;pageContext.request.contextPath &#125;/ajax2"</span>);</span><br><span class="line"><span class="comment">//设置请求头</span></span><br><span class="line">xmlhttp.setRequestHeader(<span class="string">"content-type"</span>,<span class="string">"application/x-www-form-urlencoded"</span>);</span><br><span class="line"><span class="comment">//send发送请求</span></span><br><span class="line">xmlhttp.send(<span class="string">"name=刘强东"</span>);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>编写ajaxServlet （post）：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">request.setCharacterEncoding(<span class="string">"utf-8"</span>);</span><br><span class="line"><span class="comment">//获取name  设置编码</span></span><br><span class="line">String name = request.getParameter(<span class="string">"name"</span>);</span><br><span class="line">System.out.println(name);</span><br><span class="line">response.setContentType(<span class="string">"text/html;charset=utf-8"</span>);</span><br><span class="line">response.getWriter().print(<span class="string">"post姓名:"</span>+name);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="案例之原生Ajax实现注册页面中用户名是否被占用"><a href="#案例之原生Ajax实现注册页面中用户名是否被占用" class="headerlink" title="案例之原生Ajax实现注册页面中用户名是否被占用"></a>案例之原生Ajax实现注册页面中用户名是否被占用</h3><ul>
+<li><p>创建数据库和用户表，新建项目，添加jar包和工具类以及配置文件</p>
+</li>
+<li><p>新建一个注册页面 表单 在用户名文本框上输入用户名 失去焦点</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">td</span>&gt;</span><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span>  <span class="attr">name</span>=<span class="string">"username"</span>  <span class="attr">onblur</span>=<span class="string">"checkUsername(this)"</span>&gt;</span><span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>编写checkUsername(this)方法</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">checkUsername</span>(<span class="params">obj</span>)</span>&#123;</span><br><span class="line">	alert(obj.value);</span><br><span class="line">	<span class="comment">//创建核心对象</span></span><br><span class="line">	xmlhttp = <span class="literal">null</span>;</span><br><span class="line">	<span class="keyword">if</span>(<span class="built_in">window</span>.XMLHttpRequest)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="comment">//Firefox Opera IE7 etc</span></span><br><span class="line">			xmlhttp = <span class="keyword">new</span> XMLHttpRequest();	</span><br><span class="line">		&#125;</span><br><span class="line">	<span class="keyword">else</span> <span class="keyword">if</span>(<span class="built_in">window</span>.ActiveXObject)&#123;</span><br><span class="line">			<span class="comment">//IE5 IE6</span></span><br><span class="line">			xmlhttp = <span class="keyword">new</span> ActiveXObject(<span class="string">"Microsoft.XMLHttp"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//编写回调函数</span></span><br><span class="line">	xmlhttp.onreadystatechange=<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">		<span class="keyword">if</span>(xmlhttp.readyState==<span class="number">4</span> &amp;&amp; xmlhttp.status==<span class="number">200</span>)&#123;</span><br><span class="line">			<span class="comment">//alert(xmlhttp.responseText);</span></span><br><span class="line">			<span class="keyword">if</span>(xmlhttp.responseText==<span class="number">1</span>)&#123;</span><br><span class="line">				<span class="built_in">document</span>.getElementById(<span class="string">"un_msg"</span>).innerHTML=<span class="string">"&lt;font color='green'&gt;名字可用&lt;/font&gt;"</span></span><br><span class="line">				<span class="built_in">document</span>.getElementById(<span class="string">"sub"</span>).disabled=<span class="literal">false</span>;</span><br><span class="line">			&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">				<span class="built_in">document</span>.getElementById(<span class="string">"un_msg"</span>).innerHTML=<span class="string">"&lt;font color='red'&gt;名字被占用&lt;/font&gt;"</span></span><br><span class="line">				<span class="built_in">document</span>.getElementById(<span class="string">"sub"</span>).disabled=<span class="literal">true</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//open操作</span></span><br><span class="line">	xmlhttp.open(<span class="string">"get"</span>,<span class="string">"$&#123;pageContext.request.contextPath&#125;/checkUsername4Ajax?username="</span>+obj.value);</span><br><span class="line">	<span class="comment">//send操作</span></span><br><span class="line">	xmlhttp.send();</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>编写CheckUsername4AjaxServlet(get)</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//接受用户名</span></span><br><span class="line">String username = request.getParameter(<span class="string">"username"</span>);</span><br><span class="line">username=<span class="keyword">new</span> String(username.getBytes(<span class="string">"iso-8859-1"</span>),<span class="string">"utf-8"</span>);</span><br><span class="line"><span class="comment">//调用service 完成查询操作 返回值 user</span></span><br><span class="line">System.out.println(username);</span><br><span class="line">User u=<span class="keyword">null</span>;</span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">	u = <span class="keyword">new</span> UserService().checkUsername4Ajax(username);</span><br><span class="line">&#125; <span class="keyword">catch</span> (SQLException e) &#123;</span><br><span class="line">	e.printStackTrace();</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//判断user 写回信息</span></span><br><span class="line"><span class="keyword">if</span>(u==<span class="keyword">null</span>) &#123;</span><br><span class="line">	response.getWriter().print(<span class="string">"1"</span>);</span><br><span class="line">&#125;<span class="keyword">else</span> &#123;</span><br><span class="line">	response.getWriter().print(<span class="string">"0"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>编写UserService类与UserDao类就不必多说了，从数据库中查询username为所传的username，若有则返回的uer对象不为空，返回响应文本为”1”,若无则返回响应文本为”0”。</p>
+</li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Ajax</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Java//" class="article-tag-list-link color5">Java</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/12/04/ajax/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-cookieAndSession" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
@@ -254,6 +386,103 @@
 
 
   
+    <article id="post-Servlet之登陆验证" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/11/01/Servlet之登陆验证/">Servlet之登陆验证</a>
+    </h1>
+  
+
+        
+        <a href="/2018/11/01/Servlet之登陆验证/" class="archive-article-date">
+  	<time datetime="2018-11-01T13:01:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-01</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>编写LoginServlet，实现登陆验证</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">doGet</span><span class="params">(HttpServletRequest request, HttpServletResponse response)</span> <span class="keyword">throws</span> ServletException, IOException </span>&#123;</span><br><span class="line">	<span class="comment">//设置编码</span></span><br><span class="line">	request.setCharacterEncoding(<span class="string">"utf-8"</span>);</span><br><span class="line">	<span class="comment">//接收用户输入的验证码 和 图片验证码</span></span><br><span class="line">	String rCode = request.getParameter(<span class="string">"checkcode"</span>);</span><br><span class="line">	String sCode = (String) request.getSession().getAttribute(<span class="string">"sessionCode"</span>);</span><br><span class="line">	<span class="comment">//保证验证码一次性将其从session中移除</span></span><br><span class="line">	request.getSession().removeAttribute(<span class="string">"sessionCode"</span>);</span><br><span class="line">	<span class="comment">//判断两个验证码</span></span><br><span class="line">	<span class="keyword">if</span>(rCode==<span class="keyword">null</span> || rCode.trim().length()==<span class="number">0</span>||sCode==<span class="keyword">null</span>) &#123;</span><br><span class="line">		<span class="comment">//提示信息  验证码为空</span></span><br><span class="line">		request.setAttribute(<span class="string">"msg"</span>, <span class="string">"验证码不能为空,请重新输入验证码"</span>);</span><br><span class="line">		request.getRequestDispatcher(<span class="string">"/login.jsp"</span>).forward(request, response);</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span>(!sCode.equalsIgnoreCase(rCode)) &#123;</span><br><span class="line">		<span class="comment">//提示信息  验证码前后不一致</span></span><br><span class="line">		request.setAttribute(<span class="string">"msg"</span>, <span class="string">"验证码不一致,请重新输入验证码"</span>);</span><br><span class="line">		request.getRequestDispatcher(<span class="string">"/login.jsp"</span>).forward(request, response);</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//接收用户名和密码</span></span><br><span class="line">	String username = request.getParameter(<span class="string">"username"</span>);</span><br><span class="line">	String password = request.getParameter(<span class="string">"password"</span>);</span><br><span class="line">	</span><br><span class="line">	User user=<span class="keyword">null</span>;</span><br><span class="line">	<span class="comment">//调用userService的getUserByUsernameAndPwd   返回值user</span></span><br><span class="line">	<span class="keyword">try</span> &#123;</span><br><span class="line">		user = <span class="keyword">new</span> UserService().getUserByUsernameAndPwd(username,password);</span><br><span class="line">	&#125; <span class="keyword">catch</span> (SQLException e) &#123;</span><br><span class="line">		<span class="comment">// TODO Auto-generated catch block</span></span><br><span class="line">		e.printStackTrace();</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//判断user</span></span><br><span class="line">	<span class="keyword">if</span>(user==<span class="keyword">null</span>) &#123;</span><br><span class="line">		<span class="comment">//提示信息  用户不存在</span></span><br><span class="line">		request.setAttribute(<span class="string">"msg"</span>, <span class="string">"用户名或密码错误,请重新输入"</span>);</span><br><span class="line">		request.getRequestDispatcher(<span class="string">"/login.jsp"</span>).forward(request, response);</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;<span class="keyword">else</span> &#123;</span><br><span class="line">		<span class="comment">//判断用户是否勾选了记住用户名  将user放入session中</span></span><br><span class="line">		<span class="keyword">if</span>(<span class="string">"ok"</span>.equals(request.getParameter(<span class="string">"savename"</span>))) &#123;</span><br><span class="line">			Cookie c = <span class="keyword">new</span> Cookie(<span class="string">"savename"</span>, username);</span><br><span class="line">			c.setPath(request.getContextPath()+<span class="string">"/"</span>);</span><br><span class="line">			c.setMaxAge(<span class="number">3600</span>);</span><br><span class="line">			<span class="comment">//写回浏览器</span></span><br><span class="line">			response.addCookie(c);</span><br><span class="line">		&#125;</span><br><span class="line">		request.getSession().setAttribute(<span class="string">"user"</span>, user);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//页面重定向到index.jsp</span></span><br><span class="line">	response.sendRedirect(request.getContextPath()+<span class="string">"/index.jsp"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>UserService业务逻辑层，调用UserDao层</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"> <span class="comment">/**</span></span><br><span class="line"><span class="comment"> * </span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> username</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> password</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@throws</span> SQLException</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> User <span class="title">getUserByUsernameAndPwd</span><span class="params">(String username, String password)</span> <span class="keyword">throws</span> SQLException </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="keyword">new</span> UserDao().getUserByUsernameAndPassword(username, password);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>UserDao层，实现在数据库中查询用户名和密码，返回一个User类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* </span></span><br><span class="line"><span class="comment">* <span class="doctag">@param</span> username</span></span><br><span class="line"><span class="comment">* <span class="doctag">@param</span> password</span></span><br><span class="line"><span class="comment">* <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">* <span class="doctag">@throws</span> SQLException</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line">  <span class="comment">//查询用户名与密码</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> User <span class="title">getUserByUsernameAndPassword</span><span class="params">(String username, String password)</span> <span class="keyword">throws</span> SQLException </span>&#123;</span><br><span class="line">    QueryRunner qr = <span class="keyword">new</span> QueryRunner(DataSourceUtil.getDataSource());</span><br><span class="line">    String sql = <span class="string">"select * from users where username=? and password=?"</span>;</span><br><span class="line">    User user = qr.query(sql, <span class="keyword">new</span> BeanHandler&lt;&gt;(User.class), username,password);</span><br><span class="line">    <span class="keyword">return</span> user;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<p>登录错误信息展示在Login.jsp页面中,代码如下</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;font&gt;会员登录&lt;/font&gt;USER LOGIN  &lt;font style="color: red;font-size: 10px;font-family:'微软雅黑'   "&gt;$&#123;msg &#125;&lt;/font&gt;</span><br></pre></td></tr></table></figure>
+<p>综上即可完成对登陆页面的验证，难度较低。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">servlet</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">案例</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Java//" class="article-tag-list-link color5">Java</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/11/01/Servlet之登陆验证/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-java事务总结" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
@@ -274,63 +503,18 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>mvc思想：</p>
-<pre><code>servlet--&gt;缺点:生成html内容太麻烦
-    |
-jsp---&gt;缺点:阅读起来不方便,维护比较困难
-    |
-jsp+javabean:
-        jsp的model1:
-            jsp:接受请求,展示数据
-            javabean:和数据打交道 
-    |
-jsp+javabean+servlet
-        jsp的model2:
-            jsp:展示数据
-            javabean:和数据打交道
-            servlet:接受请求,处理业务逻辑
-        就是MVC思想的体现
-</code></pre><p>MVC:<br>    将业务逻辑,代码,显示相分离的一种思想<br>    M:model 模型 作用:主要是封装数据,封装对数据的访问<br>    V:view     视图 作用:主要是用来展示数据 一般是jsp担任的<br>    C:ctrl    控制 作用:接受请求,找到相应的javabean完成业务逻辑<br>分层:javaee的三层架构</p>
-<pre><code>web
-    作用:
-        展示数据 ----jsp
-        -----servlet-------
-        接受请求
-        找到对应的service,调用方法 完成逻辑操作
-        信息生成或者页面跳转
-service 业务层
-    作用:
-        完成业务操作
-        调用dao
-dao(data access object 数据访问对象)
-    作用:
-        对数据库的curd操作
-</code></pre><p>jsp设计模式1 model1:(基本不用)</p>
-<figure class="highlight jsp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">javabean+jsp</span><br><span class="line">javabean在model1使用(了解)</span><br><span class="line">	&lt;!-- 接受值 --&gt;</span><br><span class="line">	&lt;jsp:useBean id="u" class="com.itheima.domain.User"&gt;&lt;/jsp:useBean&gt;&lt;!--相当于  User u=new User()--&gt;</span><br><span class="line">	&lt;jsp:setProperty property=<span class="string">"name"</span> name=<span class="string">"u"</span>/&gt;&lt;!--相当于  u.setName(...)--&gt;</span><br><span class="line">	&lt;jsp:setProperty property=<span class="string">"password"</span> name=<span class="string">"u"</span>/&gt;</span><br><span class="line"></span><br><span class="line">	&lt;!-- 打印值--&gt;</span><br><span class="line">	&lt;jsp:getProperty property=<span class="string">"name"</span> name=<span class="string">"u"</span>/&gt;</span><br></pre></td></tr></table></figure>
-<p>javabean在model2中使用</p>
-<pre><code>BeanUtils:可以看作封装数据一个工具类
-    使用步骤:
-        1.导入jar包
-        2.使用BeanUtils.populate(Object bean,Map map);
-</code></pre><p>事务:指一件完整的事情,包含多个操作单元,这些操作要么全部成功,要么全部失败.例如:转账，包含转出操作和转入操作.</p>
-<pre><code>mysql中的事务:
-mysql中事务默认是自动提交,一条sql语句就是一个事务.
-开启手动事务方式
-    方式1:关闭自动事务.(了解)
-        set autocommit = off;
-        show variables like &apos;%autocommit%&apos;;  //查看自动提交是否开启
-    方式2:手动开启一个事务.(理解)
-        start transaction;-- 开启一个事务
-        commit;-- 事务提交
-        rollback;-- 事务回滚
-扩展:
-    oracle中事务默认是手动的,必须手动提交才可以.
-</code></pre><p>java中的事务:</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Connection接口的api:★</span><br><span class="line">	setAutoCommit(<span class="keyword">false</span>);<span class="comment">//手动开启事务</span></span><br><span class="line">	commit():事务提交</span><br><span class="line">	rollback():事务回滚</span><br><span class="line"></span><br><span class="line">扩展:了解 Savepoint还原点</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">rollback</span><span class="params">(Savepoint savepoint)</span> :还原到那个还原点</span></span><br><span class="line"><span class="function">	Savepoint <span class="title">setSavepoint</span><span class="params">()</span> :设置还原点</span></span><br></pre></td></tr></table></figure>
-<p>保证所有的操作在一个事务中,必须保证使用的是同一个连接,在service层我们获取了连接,开启了事务.如何dao层使用此连接呢?</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">方法<span class="number">1</span>:</span><br><span class="line">	向下传递参数.注意连接应该在service释放</span><br><span class="line">方法<span class="number">2</span>:</span><br><span class="line">	可以将connection对象绑定当前线程上</span><br><span class="line">	jdk中有一个ThreadLocal类,</span><br><span class="line">	ThreadLocal 实例通常是类中的 <span class="keyword">private</span> <span class="keyword">static</span> 字段，</span><br><span class="line">	它们希望将状态与某一个线程（例如，用户 ID 或事务 ID）相关联。 </span><br><span class="line">ThreadLocal的方法:</span><br><span class="line">	构造:</span><br><span class="line">	<span class="keyword">new</span> ThreadLocal()</span><br><span class="line">	set(Object value):将内容和当前线程绑定</span><br><span class="line">	<span class="function">Object <span class="title">get</span><span class="params">()</span>:获取和迪昂前线程绑定的内容</span></span><br><span class="line"><span class="function">	<span class="title">remove</span><span class="params">()</span>:将当前线程和内容解绑</span></span><br><span class="line"><span class="function">内部维护了map集合</span></span><br><span class="line"><span class="function">	map.<span class="title">put</span><span class="params">(当前线程,内容)</span></span>;</span><br><span class="line">	map.get(当前线程)</span><br><span class="line">	map.remove(当前线程)</span><br><span class="line">DButils:</span><br><span class="line"><span class="number">1</span>.创建queryrunner</span><br><span class="line"><span class="number">2</span>.编写sql</span><br><span class="line"><span class="number">3</span>.执行sql</span><br><span class="line">QueryRunner:</span><br><span class="line">构造:</span><br><span class="line">	<span class="keyword">new</span> QueryRunner(DataSource ds):自动事务</span><br><span class="line">	<span class="keyword">new</span> QueryRunner():手动事务</span><br><span class="line">常用方法:</span><br><span class="line">	update(Connection conn,String sql,Object ... params):执行的cud操作</span><br><span class="line">	query(Connection conn....):执行查询操作</span><br><span class="line">注意:</span><br><span class="line">	一旦使用手动事务,调用方法的时候都需要手动传入connection,并且需要手动关闭连接</span><br></pre></td></tr></table></figure>
-<p>事务总结:</p>
-<pre><code>事务的特性:★★★
+        <h3 id="mvc思想："><a href="#mvc思想：" class="headerlink" title="mvc思想："></a>mvc思想：</h3><p>​    servlet–&gt;缺点:生成html内容太麻烦<br>​        |<br>​    jsp—&gt;缺点:阅读起来不方便,维护比较困难<br>​        |<br>​    jsp+javabean:<br>​            jsp的model1:<br>​                jsp:接受请求,展示数据<br>​                javabean:和数据打交道<br>​        |<br>​    jsp+javabean+servlet<br>​        j    sp的model2:<br>​                jsp:展示数据<br>​                javabean:和数据打交道<br>​                servlet:接受请求,处理业务逻辑<br>​    就是MVC思想的体现</p>
+<h3 id="MVC"><a href="#MVC" class="headerlink" title="MVC:"></a>MVC:</h3><p>​    将业务逻辑,代码,显示相分离的一种思想<br>​    M:model 模型 作用:主要是封装数据,封装对数据的访问<br>​    V:view     视图 作用:主要是用来展示数据 一般是jsp担任的<br>​    C:ctrl    控制 作用:接受请求,找到相应的javabean完成业务逻辑</p>
+<h3 id="分层-javaee的三层架构"><a href="#分层-javaee的三层架构" class="headerlink" title="分层:javaee的三层架构"></a>分层:javaee的三层架构</h3><p>​    web<br>​        作用:<br>​            展示数据 —-jsp<br>​            —–servlet——-<br>​            接受请求<br>​            找到对应的service,调用方法 完成逻辑操作<br>​            信息生成或者页面跳转<br>​    service 业务层<br>​        作用:<br>​            完成业务操作<br>​            调用dao<br>​    dao(data access object 数据访问对象)<br>​        作用:<br>​            对数据库的curd操作</p>
+<h3 id="jsp设计模式1-model1-基本不用"><a href="#jsp设计模式1-model1-基本不用" class="headerlink" title="jsp设计模式1 model1:(基本不用)"></a>jsp设计模式1 model1:(基本不用)</h3><p>​    javabean+jsp<br>​    javabean在model1使用(了解)</p>
+<figure class="highlight jsp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 接受值 --&gt;</span><br><span class="line">&lt;jsp:useBean id="u" class="com.itheima.domain.User"&gt;&lt;/jsp:useBean&gt;&lt;!--相当于  User u=new User()--&gt;</span><br><span class="line">&lt;jsp:setProperty property=<span class="string">"name"</span> name=<span class="string">"u"</span>/&gt;&lt;!--相当于  u.setName(...)--&gt;</span><br><span class="line">&lt;jsp:setProperty property=<span class="string">"password"</span> name=<span class="string">"u"</span>/&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- 打印值--&gt;</span><br><span class="line">&lt;jsp:getProperty property=<span class="string">"name"</span> name=<span class="string">"u"</span>/&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="javabean在model2中使用"><a href="#javabean在model2中使用" class="headerlink" title="javabean在model2中使用"></a>javabean在model2中使用</h3><p>BeanUtils:可以看作封装数据一个工具类<br>​    使用步骤:<br>​        1.导入jar包<br>​        2.使用BeanUtils.populate(Object bean,Map map);</p>
+<h3 id="事务"><a href="#事务" class="headerlink" title="事务:"></a>事务:</h3><p>​    指一件完整的事情,包含多个操作单元,这些操作要么全部成功,要么全部失败.例如:转账，包含转出操作和转入操作.</p>
+<p>​    mysql中的事务:<br>​    mysql中事务默认是自动提交,一条sql语句就是一个事务.<br>​    开启手动事务方式<br>​        方式1:关闭自动事务.(了解)<br>​            set autocommit = off;<br>​            show variables like ‘%autocommit%’;  //查看自动提交是否开启<br>​        方式2:手动开启一个事务.(理解)<br>​            start transaction;– 开启一个事务<br>​            commit;– 事务提交<br>​            rollback;– 事务回滚<br>​    扩展:<br>​        oracle中事务默认是手动的,必须手动提交才可以.</p>
+<h3 id="java中的事务"><a href="#java中的事务" class="headerlink" title="java中的事务:"></a>java中的事务:</h3><p>​        Connection接口的api:★<br>​            setAutoCommit(false);//手动开启事务<br>​            commit():事务提交<br>​            rollback():事务回滚<br>​        扩展:了解 Savepoint还原点<br>​            void rollback(Savepoint savepoint) :还原到那个还原点<br>​            Savepoint setSavepoint() :设置还原点</p>
+<p>保证所有的操作在一个事务中,必须保证使用的是同一个连接,在service层获取了连接,开启了事务.如何dao层使用此连接?</p>
+<p>​    方法1:<br>​        向下传递参数.注意连接应该在service释放<br>​    方法2:<br>​        可以将connection对象绑定当前线程上<br>​        jdk中有一个ThreadLocal类,<br>​        ThreadLocal 实例通常是类中的 private static 字段，<br>​        它们希望将状态与某一个线程（例如，用户 ID 或事务 ID）相关联。<br>​    ThreadLocal的方法:<br>​        构造:<br>​        new ThreadLocal()<br>​        set(Object value):将内容和当前线程绑定<br>​        Object get():获取和迪昂前线程绑定的内容<br>​        remove():将当前线程和内容解绑<br>​    内部维护了map集合<br>​        map.put(当前线程,内容);<br>​        map.get(当前线程)<br>​        map.remove(当前线程)<br>​    DButils:<br>​    1.创建queryrunner<br>​    2.编写sql<br>​    3.执行sql<br>​    QueryRunner:<br>​    构造:<br>​        new QueryRunner(DataSource ds):自动事务<br>​        new QueryRunner():手动事务<br>​    常用方法:<br>​        update(Connection conn,String sql,Object … params):执行的cud操作<br>​        query(Connection conn….):执行查询操作<br>​    注意:<br>​        一旦使用手动事务,调用方法的时候都需要手动传入connection,并且需要手动关闭连接</p>
+<h2 id="事务总结"><a href="#事务总结" class="headerlink" title="事务总结:"></a>事务总结:</h2><pre><code>事务的特性:★★★
     ACID
     原子性:事务里面的操作单元不可切割,要么全部成功,要么全部失败
     一致性:事务执行前后,业务状态和其他业务状态保持一致.
@@ -345,8 +529,7 @@ mysql中事务默认是自动提交,一条sql语句就是一个事务.
     read committed      读已提交    可以避免脏读的发生
     repeatable read        可重复读    可以避免脏读和不可重复读的发生
     serializable        串行化        可以避免所有的问题
-</code></pre><p>拓展了解:</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">	演示脏读的发生:</span><br><span class="line">		将数据库的隔离级别设置成 读未提交</span><br><span class="line">			<span class="keyword">set</span> <span class="keyword">session</span> <span class="keyword">transaction</span> <span class="keyword">isolation</span> <span class="keyword">level</span> <span class="keyword">read</span> uncommitted;</span><br><span class="line">		查看数据库的隔离级别</span><br><span class="line">			<span class="keyword">select</span> @@tx_isolation;</span><br><span class="line">	避免脏读的发生,将隔离级别设置成  读已提交</span><br><span class="line">		<span class="keyword">set</span> <span class="keyword">session</span> <span class="keyword">transaction</span> <span class="keyword">isolation</span> <span class="keyword">level</span> <span class="keyword">read</span> committed;</span><br><span class="line">		不可避免不可重复读的发生.</span><br><span class="line">	</span><br><span class="line">	避免不可重复读的发生 经隔离级别设置成 可重复读</span><br><span class="line">		<span class="keyword">set</span> <span class="keyword">session</span> <span class="keyword">transaction</span> <span class="keyword">isolation</span> <span class="keyword">level</span>  repeatable <span class="keyword">read</span>;</span><br><span class="line">		</span><br><span class="line">	演示串行化 可以避免所有的问题</span><br><span class="line">		<span class="keyword">set</span> <span class="keyword">session</span> <span class="keyword">transaction</span> <span class="keyword">isolation</span> <span class="keyword">level</span>  <span class="keyword">serializable</span>;</span><br><span class="line">		锁表的操作.</span><br><span class="line">	</span><br><span class="line">四种隔离级别的效率</span><br><span class="line">	read uncommitted&gt;read committed&gt;repeatable read&gt;serializable</span><br><span class="line">四种隔离级别的安全性</span><br><span class="line">	read uncommitted&lt;read committed&lt;repeatable read&lt;serializable</span><br><span class="line">	</span><br><span class="line">开发中绝对不允许脏读发生.</span><br><span class="line">	mysql中默认级别:repeatable read</span><br><span class="line">	oracle中默认级别:read committed</span><br><span class="line"></span><br><span class="line">java中控制隔离级别:(了解)</span><br><span class="line">	Connection的api</span><br><span class="line">		void setTransactionIsolation(int level) </span><br><span class="line">			level是常量</span><br></pre></td></tr></table></figure>
+</code></pre><h3 id="拓展了解"><a href="#拓展了解" class="headerlink" title="拓展了解:"></a>拓展了解:</h3><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">	演示脏读的发生:</span><br><span class="line">		将数据库的隔离级别设置成 读未提交</span><br><span class="line">			<span class="keyword">set</span> <span class="keyword">session</span> <span class="keyword">transaction</span> <span class="keyword">isolation</span> <span class="keyword">level</span> <span class="keyword">read</span> uncommitted;</span><br><span class="line">		查看数据库的隔离级别</span><br><span class="line">			<span class="keyword">select</span> @@tx_isolation;</span><br><span class="line">	避免脏读的发生,将隔离级别设置成  读已提交</span><br><span class="line">		<span class="keyword">set</span> <span class="keyword">session</span> <span class="keyword">transaction</span> <span class="keyword">isolation</span> <span class="keyword">level</span> <span class="keyword">read</span> committed;</span><br><span class="line">		不可避免不可重复读的发生.</span><br><span class="line">	</span><br><span class="line">	避免不可重复读的发生 经隔离级别设置成 可重复读</span><br><span class="line">		<span class="keyword">set</span> <span class="keyword">session</span> <span class="keyword">transaction</span> <span class="keyword">isolation</span> <span class="keyword">level</span>  repeatable <span class="keyword">read</span>;</span><br><span class="line">		</span><br><span class="line">	演示串行化 可以避免所有的问题</span><br><span class="line">		<span class="keyword">set</span> <span class="keyword">session</span> <span class="keyword">transaction</span> <span class="keyword">isolation</span> <span class="keyword">level</span>  <span class="keyword">serializable</span>;</span><br><span class="line">		锁表的操作.</span><br><span class="line">	</span><br><span class="line">四种隔离级别的效率</span><br><span class="line">	read uncommitted&gt;read committed&gt;repeatable read&gt;serializable</span><br><span class="line">四种隔离级别的安全性</span><br><span class="line">	read uncommitted&lt;read committed&lt;repeatable read&lt;serializable</span><br><span class="line">	</span><br><span class="line">开发中绝对不允许脏读发生.</span><br><span class="line">	mysql中默认级别:repeatable read</span><br><span class="line">	oracle中默认级别:read committed</span><br><span class="line"></span><br><span class="line">java中控制隔离级别:(了解)</span><br><span class="line">	Connection的api</span><br><span class="line">		void setTransactionIsolation(int level) </span><br><span class="line">			level是常量</span><br></pre></td></tr></table></figure>
 
       
 
@@ -551,103 +734,6 @@ jsp注释 &lt;%--  --%&gt;
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2018/11/01/jsp_el_jstl/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-Servlet之登陆验证" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/11/01/Servlet之登陆验证/">Servlet之登陆验证</a>
-    </h1>
-  
-
-        
-        <a href="/2018/11/01/Servlet之登陆验证/" class="archive-article-date">
-  	<time datetime="2018-11-01T13:01:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-01</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>编写LoginServlet，实现登陆验证</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">doGet</span><span class="params">(HttpServletRequest request, HttpServletResponse response)</span> <span class="keyword">throws</span> ServletException, IOException </span>&#123;</span><br><span class="line">	<span class="comment">//设置编码</span></span><br><span class="line">	request.setCharacterEncoding(<span class="string">"utf-8"</span>);</span><br><span class="line">	<span class="comment">//接收用户输入的验证码 和 图片验证码</span></span><br><span class="line">	String rCode = request.getParameter(<span class="string">"checkcode"</span>);</span><br><span class="line">	String sCode = (String) request.getSession().getAttribute(<span class="string">"sessionCode"</span>);</span><br><span class="line">	<span class="comment">//保证验证码一次性将其从session中移除</span></span><br><span class="line">	request.getSession().removeAttribute(<span class="string">"sessionCode"</span>);</span><br><span class="line">	<span class="comment">//判断两个验证码</span></span><br><span class="line">	<span class="keyword">if</span>(rCode==<span class="keyword">null</span> || rCode.trim().length()==<span class="number">0</span>||sCode==<span class="keyword">null</span>) &#123;</span><br><span class="line">		<span class="comment">//提示信息  验证码为空</span></span><br><span class="line">		request.setAttribute(<span class="string">"msg"</span>, <span class="string">"验证码不能为空,请重新输入验证码"</span>);</span><br><span class="line">		request.getRequestDispatcher(<span class="string">"/login.jsp"</span>).forward(request, response);</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span>(!sCode.equalsIgnoreCase(rCode)) &#123;</span><br><span class="line">		<span class="comment">//提示信息  验证码前后不一致</span></span><br><span class="line">		request.setAttribute(<span class="string">"msg"</span>, <span class="string">"验证码不一致,请重新输入验证码"</span>);</span><br><span class="line">		request.getRequestDispatcher(<span class="string">"/login.jsp"</span>).forward(request, response);</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//接收用户名和密码</span></span><br><span class="line">	String username = request.getParameter(<span class="string">"username"</span>);</span><br><span class="line">	String password = request.getParameter(<span class="string">"password"</span>);</span><br><span class="line">	</span><br><span class="line">	User user=<span class="keyword">null</span>;</span><br><span class="line">	<span class="comment">//调用userService的getUserByUsernameAndPwd   返回值user</span></span><br><span class="line">	<span class="keyword">try</span> &#123;</span><br><span class="line">		user = <span class="keyword">new</span> UserService().getUserByUsernameAndPwd(username,password);</span><br><span class="line">	&#125; <span class="keyword">catch</span> (SQLException e) &#123;</span><br><span class="line">		<span class="comment">// TODO Auto-generated catch block</span></span><br><span class="line">		e.printStackTrace();</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//判断user</span></span><br><span class="line">	<span class="keyword">if</span>(user==<span class="keyword">null</span>) &#123;</span><br><span class="line">		<span class="comment">//提示信息  用户不存在</span></span><br><span class="line">		request.setAttribute(<span class="string">"msg"</span>, <span class="string">"用户名或密码错误,请重新输入"</span>);</span><br><span class="line">		request.getRequestDispatcher(<span class="string">"/login.jsp"</span>).forward(request, response);</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;<span class="keyword">else</span> &#123;</span><br><span class="line">		<span class="comment">//判断用户是否勾选了记住用户名  将user放入session中</span></span><br><span class="line">		<span class="keyword">if</span>(<span class="string">"ok"</span>.equals(request.getParameter(<span class="string">"savename"</span>))) &#123;</span><br><span class="line">			Cookie c = <span class="keyword">new</span> Cookie(<span class="string">"savename"</span>, username);</span><br><span class="line">			c.setPath(request.getContextPath()+<span class="string">"/"</span>);</span><br><span class="line">			c.setMaxAge(<span class="number">3600</span>);</span><br><span class="line">			<span class="comment">//写回浏览器</span></span><br><span class="line">			response.addCookie(c);</span><br><span class="line">		&#125;</span><br><span class="line">		request.getSession().setAttribute(<span class="string">"user"</span>, user);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//页面重定向到index.jsp</span></span><br><span class="line">	response.sendRedirect(request.getContextPath()+<span class="string">"/index.jsp"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>UserService业务逻辑层，调用UserDao层</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"> <span class="comment">/**</span></span><br><span class="line"><span class="comment"> * </span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> username</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> password</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@throws</span> SQLException</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> User <span class="title">getUserByUsernameAndPwd</span><span class="params">(String username, String password)</span> <span class="keyword">throws</span> SQLException </span>&#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="keyword">new</span> UserDao().getUserByUsernameAndPassword(username, password);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>UserDao层，实现在数据库中查询用户名和密码，返回一个User类</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* </span></span><br><span class="line"><span class="comment">* <span class="doctag">@param</span> username</span></span><br><span class="line"><span class="comment">* <span class="doctag">@param</span> password</span></span><br><span class="line"><span class="comment">* <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">* <span class="doctag">@throws</span> SQLException</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line">  <span class="comment">//查询用户名与密码</span></span><br><span class="line">  <span class="function"><span class="keyword">public</span> User <span class="title">getUserByUsernameAndPassword</span><span class="params">(String username, String password)</span> <span class="keyword">throws</span> SQLException </span>&#123;</span><br><span class="line">    QueryRunner qr = <span class="keyword">new</span> QueryRunner(DataSourceUtil.getDataSource());</span><br><span class="line">    String sql = <span class="string">"select * from users where username=? and password=?"</span>;</span><br><span class="line">    User user = qr.query(sql, <span class="keyword">new</span> BeanHandler&lt;&gt;(User.class), username,password);</span><br><span class="line">    <span class="keyword">return</span> user;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
-<p>登录错误信息展示在Login.jsp页面中,代码如下</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;font&gt;会员登录&lt;/font&gt;USER LOGIN  &lt;font style="color: red;font-size: 10px;font-family:'微软雅黑'   "&gt;$&#123;msg &#125;&lt;/font&gt;</span><br></pre></td></tr></table></figure>
-<p>综上即可完成对登陆页面的验证，难度较低。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">servlet</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">案例</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Java//" class="article-tag-list-link color5">Java</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/11/01/Servlet之登陆验证/">展开全文 >></a>
         </p>
       
 
@@ -1015,19 +1101,19 @@ jsp注释 &lt;%--  --%&gt;
 
 
   
-    <article id="post-列表知识点整理" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+    <article id="post-字典知识点整理" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2018/09/01/列表知识点整理/">Python基本类型之列表和集合</a>
+      <a class="article-title" href="/2018/09/01/字典知识点整理/">Python基本类型之字典</a>
     </h1>
   
 
         
-        <a href="/2018/09/01/列表知识点整理/" class="archive-article-date">
+        <a href="/2018/09/01/字典知识点整理/" class="archive-article-date">
   	<time datetime="2018-09-01T13:34:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-09-01</time>
 </a>
         
@@ -1035,23 +1121,16 @@ jsp注释 &lt;%--  --%&gt;
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="列表List-（可变类型）"><a href="#列表List-（可变类型）" class="headerlink" title="列表List  （可变类型）"></a>列表List  （可变类型）</h2><h3 id="1-列表创建"><a href="#1-列表创建" class="headerlink" title="1.列表创建"></a>1.列表创建</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">a = []  列表的个数是任意的，里面的数据也是任意类型</span><br><span class="line">a = [元素<span class="number">1</span>， 元素<span class="number">2</span>，元素<span class="number">3</span>,...]</span><br><span class="line">-列表的嵌套：</span><br><span class="line">    a = [b[],c[],d[],...]</span><br></pre></td></tr></table></figure>
-<p>###2.列表的访问<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#    -5-4-3-4-1</span></span><br><span class="line">a = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>]</span><br><span class="line">     <span class="number">0</span> <span class="number">1</span> <span class="number">2</span> <span class="number">3</span> <span class="number">4</span></span><br><span class="line"><span class="comment">#取1，3，5的值  a[::2]</span></span><br><span class="line"><span class="comment">#a[索引值]</span></span><br></pre></td></tr></table></figure></p>
-<p>###3.如何修改列表里的元素<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#a[索引值] = 新的值</span></span><br><span class="line">a[<span class="number">1</span>] = <span class="number">1</span></span><br></pre></td></tr></table></figure></p>
-<p>###4.添加元素<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">-append()</span><br><span class="line">列表.append(待添加的值)  末尾追加</span><br><span class="line">-insert()</span><br><span class="line">列表.insert(索引值,待添加的值)   插入该索引值的前面一位</span><br><span class="line">-extend()</span><br><span class="line">列表.extend(列表<span class="number">2</span>)  把列表<span class="number">2</span>中的所有元素添加到列表<span class="number">1</span>的尾部</span><br></pre></td></tr></table></figure></p>
-<p>###5.删除元素<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">-pop()      有返回你删除的值</span><br><span class="line">a.pop()     删除a列表的最后一项元素</span><br><span class="line">a.pop(x)    删除a列表中索引值为x的元素</span><br><span class="line"></span><br><span class="line">-<span class="keyword">del</span>     </span><br><span class="line"><span class="keyword">del</span> 列表[<span class="number">1</span>]</span><br><span class="line"></span><br><span class="line">-remove</span><br><span class="line">a.remove[<span class="string">"某值"</span>]</span><br><span class="line"></span><br><span class="line">-clear 将整个列表删除</span><br><span class="line">a.clear（） 返回空列表[]</span><br></pre></td></tr></table></figure></p>
-<p>###其他方法<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1.</span>count()</span><br><span class="line">    a.count(元素值)  计算这个元素在a中出现的次数</span><br><span class="line"><span class="number">2.</span>sort()</span><br><span class="line">    a.sort()         从小到大进行排序(int)</span><br><span class="line"><span class="number">3.</span>reverse()</span><br><span class="line">    a.reverse()      颠倒列表</span><br><span class="line"><span class="number">4.</span>index()</span><br><span class="line">    a.index(元素值)  返回第一次出现这个元素的索引值</span><br></pre></td></tr></table></figure></p>
-<p>in判断一个元素是否在列表中 返回值有True and False</p>
-<p>not in 判断一个元素是否不在列表中 返回值有True and False</p>
-<p>while循环语句</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> 条件:</span><br><span class="line">    循环体</span><br><span class="line">    循环体</span><br><span class="line">缩进对齐方式控制循环体</span><br></pre></td></tr></table></figure>
-<h2 id="Set（集合）"><a href="#Set（集合）" class="headerlink" title="Set（集合）"></a>Set（集合）</h2><p>集合（set）是由一个或数个形态各异的大小整体组成的，构成集合的事物或对象称作元素或是成员。</p>
-<p>基本功能是进行成员关系测试和删除重复元素。</p>
-<p>可以使用大括号 { } 或者 set() 函数创建集合，注意：创建一个空集合必须用 set() 而不是 { }，因为 { } 是用来创建一个空字典。</p>
-<p>创建格式：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">parame = &#123;value01,value02,...&#125;</span><br><span class="line">或者</span><br><span class="line">set(value)</span><br></pre></td></tr></table></figure>
-<p>实例</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">student = &#123;<span class="string">'Tom'</span>, <span class="string">'Jim'</span>, <span class="string">'Mary'</span>, <span class="string">'Tom'</span>, <span class="string">'Jack'</span>, <span class="string">'Rose'</span>&#125;</span><br><span class="line"> </span><br><span class="line">print(student)   <span class="comment"># 输出集合，重复的元素被自动去掉</span></span><br><span class="line"> </span><br><span class="line"><span class="comment"># 成员测试</span></span><br><span class="line"><span class="keyword">if</span> <span class="string">'Rose'</span> <span class="keyword">in</span> student :</span><br><span class="line">    print(<span class="string">'Rose 在集合中'</span>)</span><br><span class="line"><span class="keyword">else</span> :</span><br><span class="line">    print(<span class="string">'Rose 不在集合中'</span>)</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"><span class="comment"># set可以进行集合运算</span></span><br><span class="line">a = set(<span class="string">'abracadabra'</span>)</span><br><span class="line">b = set(<span class="string">'alacazam'</span>)</span><br><span class="line"> </span><br><span class="line">print(a)</span><br><span class="line"> </span><br><span class="line">print(a - b)     <span class="comment"># a 和 b 的差集</span></span><br><span class="line"> </span><br><span class="line">print(a | b)     <span class="comment"># a 和 b 的并集</span></span><br><span class="line"> </span><br><span class="line">print(a &amp; b)     <span class="comment"># a 和 b 的交集</span></span><br><span class="line"> </span><br><span class="line">print(a ^ b)     <span class="comment"># a 和 b 中不同时存在的元素</span></span><br></pre></td></tr></table></figure>
+        <h2 id="字典（dict）知识点"><a href="#字典（dict）知识点" class="headerlink" title="字典（dict）知识点"></a>字典（dict）知识点</h2><p>1.字典的创建</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># &#123;&#125; 或者 dict()</span></span><br></pre></td></tr></table></figure>
+<p>2.字典的元素</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 字典中的元素是以键值对的形式（key:value）</span></span><br><span class="line"><span class="comment"># key为不可变数据类型,必须唯一  字符串  数字  元组</span></span><br><span class="line"><span class="comment"># value可以不唯一为任意数据类型</span></span><br><span class="line"><span class="comment"># 元素与元素之间用“,”进行隔开</span></span><br><span class="line">info = &#123;<span class="string">"name"</span>: <span class="string">"陈独秀"</span>, <span class="string">"sex"</span>: <span class="string">"男"</span>&#125;</span><br></pre></td></tr></table></figure>
+<p>3.字典的元素访问</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 访问字典中存在的键</span></span><br><span class="line">字典名[key的名]   或   字典名.get(key的名)</span><br><span class="line"><span class="comment"># 访问字典中不存在的键</span></span><br><span class="line">字典名.get(key的名)  返回：<span class="keyword">None</span> </span><br><span class="line"><span class="comment"># get()可以给字典中不存在的键赋值</span></span><br><span class="line">字典名.get(key的名, 值)</span><br></pre></td></tr></table></figure>
+<p>4.字典的基本操作</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 增删改查  其他</span></span><br><span class="line"><span class="comment"># 增</span></span><br><span class="line">字典名[新的键名] = 新的值</span><br><span class="line"><span class="comment"># 删</span></span><br><span class="line"><span class="keyword">del</span>  clear()</span><br><span class="line"><span class="comment"># 改</span></span><br><span class="line">字典名[键的名字] = 新的值</span><br><span class="line"><span class="comment"># 查</span></span><br><span class="line">字典名[键的名字]</span><br><span class="line"><span class="comment"># 其他</span></span><br><span class="line">len()  keys()  values()   items()</span><br></pre></td></tr></table></figure>
+<p>5.遍历</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 遍历key</span></span><br><span class="line"><span class="comment"># 遍历value</span></span><br><span class="line"><span class="comment"># 遍历元素</span></span><br><span class="line"><span class="comment"># 遍历key and value</span></span><br></pre></td></tr></table></figure>
 
       
 
@@ -1086,7 +1165,7 @@ jsp注释 &lt;%--  --%&gt;
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2018/09/01/列表知识点整理/">展开全文 >></a>
+          <a class="article-more-a" href="/2018/09/01/字典知识点整理/">展开全文 >></a>
         </p>
       
 
@@ -1178,100 +1257,6 @@ jsp注释 &lt;%--  --%&gt;
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2018/09/01/Python基本类型之数字,字符串/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-字典知识点整理" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/09/01/字典知识点整理/">Python基本类型之字典</a>
-    </h1>
-  
-
-        
-        <a href="/2018/09/01/字典知识点整理/" class="archive-article-date">
-  	<time datetime="2018-09-01T13:34:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-09-01</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="字典（dict）知识点"><a href="#字典（dict）知识点" class="headerlink" title="字典（dict）知识点"></a>字典（dict）知识点</h2><p>1.字典的创建</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># &#123;&#125; 或者 dict()</span></span><br></pre></td></tr></table></figure>
-<p>2.字典的元素</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 字典中的元素是以键值对的形式（key:value）</span></span><br><span class="line"><span class="comment"># key为不可变数据类型,必须唯一  字符串  数字  元组</span></span><br><span class="line"><span class="comment"># value可以不唯一为任意数据类型</span></span><br><span class="line"><span class="comment"># 元素与元素之间用“,”进行隔开</span></span><br><span class="line">info = &#123;<span class="string">"name"</span>: <span class="string">"陈独秀"</span>, <span class="string">"sex"</span>: <span class="string">"男"</span>&#125;</span><br></pre></td></tr></table></figure>
-<p>3.字典的元素访问</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 访问字典中存在的键</span></span><br><span class="line">字典名[key的名]   或   字典名.get(key的名)</span><br><span class="line"><span class="comment"># 访问字典中不存在的键</span></span><br><span class="line">字典名.get(key的名)  返回：<span class="keyword">None</span> </span><br><span class="line"><span class="comment"># get()可以给字典中不存在的键赋值</span></span><br><span class="line">字典名.get(key的名, 值)</span><br></pre></td></tr></table></figure>
-<p>4.字典的基本操作</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 增删改查  其他</span></span><br><span class="line"><span class="comment"># 增</span></span><br><span class="line">字典名[新的键名] = 新的值</span><br><span class="line"><span class="comment"># 删</span></span><br><span class="line"><span class="keyword">del</span>  clear()</span><br><span class="line"><span class="comment"># 改</span></span><br><span class="line">字典名[键的名字] = 新的值</span><br><span class="line"><span class="comment"># 查</span></span><br><span class="line">字典名[键的名字]</span><br><span class="line"><span class="comment"># 其他</span></span><br><span class="line">len()  keys()  values()   items()</span><br></pre></td></tr></table></figure>
-<p>5.遍历</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 遍历key</span></span><br><span class="line"><span class="comment"># 遍历value</span></span><br><span class="line"><span class="comment"># 遍历元素</span></span><br><span class="line"><span class="comment"># 遍历key and value</span></span><br></pre></td></tr></table></figure>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Python//" class="article-tag-list-link color2">Python</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/09/01/字典知识点整理/">展开全文 >></a>
         </p>
       
 
@@ -1431,6 +1416,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">jsp</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Ajax</a>
               </li>
             
             <div class="clearfix"></div>

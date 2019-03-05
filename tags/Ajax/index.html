@@ -6,20 +6,15 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Cookie和Session | coderBlog</title>
+  <title>Tag: Ajax | coderBlog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="cookie:浏览器端会话技术 由服务器生成,key=value格式,通过响应头(set-cookie)写回浏览器保存在浏览器端,当浏览器下一次访问的时候,根据一定的规则携带不同的cookie,通过请求头(cookie)携带 常用方法: 构造:​    new Cookie(String key,String value);写回浏览器:​    response.addCookie(Cookie">
-<meta name="keywords" content="servlet,案例">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Cookie和Session">
-<meta property="og:url" content="http://yoursite.com/2018/11/04/cookieAndSession/index.html">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="coderBlog">
+<meta property="og:url" content="http://yoursite.com/tags/Ajax/index.html">
 <meta property="og:site_name" content="coderBlog">
-<meta property="og:description" content="cookie:浏览器端会话技术 由服务器生成,key=value格式,通过响应头(set-cookie)写回浏览器保存在浏览器端,当浏览器下一次访问的时候,根据一定的规则携带不同的cookie,通过请求头(cookie)携带 常用方法: 构造:​    new Cookie(String key,String value);写回浏览器:​    response.addCookie(Cookie">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-03-02T16:52:52.156Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Cookie和Session">
-<meta name="twitter:description" content="cookie:浏览器端会话技术 由服务器生成,key=value格式,通过响应头(set-cookie)写回浏览器保存在浏览器端,当浏览器下一次访问的时候,根据一定的规则携带不同的cookie,通过请求头(cookie)携带 常用方法: 构造:​    new Cookie(String key,String value);写回浏览器:​    response.addCookie(Cookie">
+<meta name="twitter:title" content="coderBlog">
   
     <link rel="alternative" href="/atom.xml" title="coderBlog" type="application/atom+xml">
   
@@ -155,90 +150,48 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-cookieAndSession" class="article article-type-post " itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
+            
   
-    <h1 class="article-title" itemprop="name">
-      Cookie和Session
+  
+    
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2018" class="archive-year">2018</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      	<div class="article-meta">
+	      	<a href="/2018/12/04/ajax/" class="archive-article-date">
+  	<time datetime="2018-12-04T12:31:25.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-12-04</time>
+</a>
+        </div>
+    	 
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2018/12/04/ajax/">原生Ajax实现get/post请求和用户名判断案例</a>
     </h1>
   
 
-        
-        <a href="/2018/11/04/cookieAndSession/" class="archive-article-date">
-  	<time datetime="2018-11-04T12:41:47.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-11-04</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>cookie:浏览器端会话技术</p>
-<p>由服务器生成,key=value格式,通过响应头(set-cookie)写回浏览器<br>保存在浏览器端,当浏览器下一次访问的时候,根据一定的规则携带不同的cookie,通过请求头(cookie)携带</p>
-<p>常用方法:</p>
-<p>构造:<br>​    new Cookie(String key,String value);<br>写回浏览器:<br>​    response.addCookie(Cookie c)<br>获取:<br>​    Cookie[] request.getCookies();<br>cookie的api:<br>​    getName():获取cookie的名称<br>​    getValue():获取cookie的值<br>​<br>​    setMaxAge(int 秒):设置cookie在浏览器的存活时间<br>​        若设置为0:删除cookie(前提必须路径保持一致)<br>​    setPath(String path):设置cookie的路径  /day1101/<br>​        若访问的路径中包含cookie的path,则携带过去<br>​        默认路径:<br>​                访问serlvet的路径,从”/项目名称”开始,到最后一个”/“结束<br>​                例如:<br>​                    访问的serlvet路径:<br>​                        /project/a/b/hello<br>​                    默认路径为:<br>​                        /project/a/b<br>​            手动设置路径:以”/项目名”开始,以”/“结尾;<br>注意:<br>​    cookie不能跨浏览器<br>​    cookie中不支持中文</p>
-<p>Cookie案例之记录用户上次访问时间<br>需求:当用户第一次登录的时候,提示:你是第一次访问,且记录该次访问时间,<br>下一次访问的时候,获取上一次访问时间且展示出来</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//设置编码</span></span><br><span class="line">response.setContentType(<span class="string">"text/html;charset=utf-8"</span>);</span><br><span class="line">PrintWriter w = response.getWriter();</span><br><span class="line"></span><br><span class="line"><span class="comment">//获取指定名称的cookie</span></span><br><span class="line">Cookie c = getCookieByName(<span class="string">"lastTime"</span>,request.getCookies());</span><br><span class="line"><span class="comment">//判断cookie是否为空</span></span><br><span class="line"><span class="keyword">if</span>(c==<span class="keyword">null</span>) &#123;</span><br><span class="line">	w.print(<span class="string">"第一次访问"</span>);</span><br><span class="line">&#125;<span class="keyword">else</span> &#123;</span><br><span class="line">	<span class="comment">//展示上次访问时间</span></span><br><span class="line">	String value = c.getValue();</span><br><span class="line">	<span class="keyword">long</span> time = Long.parseLong(value);</span><br><span class="line">	Date date = <span class="keyword">new</span> Date(time);</span><br><span class="line">	w.print(<span class="string">"上次访问的时间是"</span>+date);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//记录当前访问时间</span></span><br><span class="line"><span class="comment">//创建cookie</span></span><br><span class="line">c=<span class="keyword">new</span> Cookie(<span class="string">"lastTime"</span>, <span class="keyword">new</span> Date().getTime()+<span class="string">""</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//持久化cookie  秒数</span></span><br><span class="line">c.setMaxAge(<span class="number">60</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//设置路径</span></span><br><span class="line">c.setPath(request.getContextPath()+<span class="string">"/"</span>);</span><br><span class="line"><span class="comment">//写回浏览器</span></span><br><span class="line">response.addCookie(c);</span><br></pre></td></tr></table></figure>
-<p>Cookie案例之记录用户浏览历史<br>需求:当用户访问一个商品的时候,需要将该商品保留在浏览记录中</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line">String id = request.getParameter(<span class="string">"id"</span>);</span><br><span class="line"><span class="comment">//获取指定的cookie  ids</span></span><br><span class="line">Cookie c = CookieUtils.getCookieByName(<span class="string">"ids"</span>, request.getCookies());</span><br><span class="line">String ids=<span class="string">""</span>;</span><br><span class="line"><span class="comment">//判断cookie是否为空</span></span><br><span class="line"><span class="keyword">if</span>(c==<span class="keyword">null</span>) &#123;</span><br><span class="line">	ids=id;</span><br><span class="line">&#125;<span class="keyword">else</span> &#123;</span><br><span class="line">	ids=c.getValue();</span><br><span class="line">	String[] arr = ids.split(<span class="string">"-"</span>);</span><br><span class="line">	<span class="comment">//将数组转成集合  此list长度不可变  需要传入新的集合中</span></span><br><span class="line">	List&lt;String&gt; asList = Arrays.asList(arr);</span><br><span class="line">	LinkedList&lt;String&gt; list = <span class="keyword">new</span> LinkedList&lt;&gt;(asList);</span><br><span class="line">	 <span class="keyword">if</span>(list.contains(id)) &#123;</span><br><span class="line">		 <span class="comment">//若ids包含id,将id移除并放在最前面</span></span><br><span class="line">		 list.remove(id);</span><br><span class="line">		 list.addFirst(id);</span><br><span class="line">	 &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">		 <span class="comment">//若ids不包含id,继续判断长度是否大于2</span></span><br><span class="line">		 <span class="keyword">if</span>(list.size()&gt;<span class="number">2</span>) &#123;</span><br><span class="line">			 <span class="comment">//长度大于3个，移除最后一个，并且将当前id放在第一个</span></span><br><span class="line">			 list.removeLast();</span><br><span class="line">			 list.addFirst(id);</span><br><span class="line">		 &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">			 <span class="comment">//长度小于3，直接将当前id放在最前面</span></span><br><span class="line">			 list.addFirst(id);</span><br><span class="line">		 &#125;</span><br><span class="line">	 &#125;</span><br><span class="line">	 ids=<span class="string">""</span>;</span><br><span class="line">	<span class="comment">//将list转换成字符串</span></span><br><span class="line">	 <span class="keyword">for</span> (String s : list) &#123;</span><br><span class="line">		ids+=(s+<span class="string">"-"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	 ids = ids.substring(<span class="number">0</span>, ids.length()-<span class="number">1</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//将ids写回cookie</span></span><br><span class="line">c=<span class="keyword">new</span> Cookie(<span class="string">"ids"</span>, ids);</span><br><span class="line"><span class="comment">//设置访问路径</span></span><br><span class="line">c.setPath(request.getContextPath()+<span class="string">"/"</span>);</span><br><span class="line"><span class="comment">//设置存活时间</span></span><br><span class="line">c.setMaxAge(<span class="number">600</span>);</span><br><span class="line"><span class="comment">//写回浏览器</span></span><br><span class="line">response.addCookie(c);</span><br><span class="line">		</span><br><span class="line"><span class="comment">//跳转到指定网页上</span></span><br><span class="line">response.sendRedirect(request.getContextPath()+<span class="string">"/product_info"</span>+id+<span class="string">".htm"</span>);</span><br></pre></td></tr></table></figure>
-<p>session:</p>
-<p>服务器端会话技术.<br>当我们第一次访问的服务器的时候,服务器获取id,<br>​    能获取id<br>​        要拿着这个id去服务器中查找有无此session<br>​            若查找到了:直接拿过来时候,将数据保存,需要将当前sessin的id返回给浏览器<br>​            若查找不到:创建一个session,将你的数据保存到这个session中,将当前session的id返回给浏览器<br>​    不能获取id<br>​        创建一个session,将你的数据保存到这个session中,将当前session的id返回给浏览器</p>
-<p>获取一个session:<br>​    HttpSession  request.getSession()</p>
-<p>域对象:<br>​    xxxAttribute<br>​    生命周期:<br>​        创建:第一次调用request.getsession()创建<br>​        销毁:<br>​            服务器非正常关闭<br>​            session超时<br>​                默认时间超时:30分钟  web.xml有配置<br>​                手动设置超时:setMaxInactiveInterval(int 秒) 了解<br>​            手动干掉session<br>​                ★session.invalidate()<br>​    存放的私有的数据.</p>
-<p>添加到购物车<br>需求:在商品详情页面有一个添加到购物车,点击则将该商品添加到购物车,点击购物车连接将里面的所有商品展示出来</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//设置编码</span></span><br><span class="line">response.setContentType(<span class="string">"text/html;charset=utf-8"</span>);</span><br><span class="line">PrintWriter w = response.getWriter();</span><br><span class="line"><span class="comment">//获取商品名称</span></span><br><span class="line">String name = request.getParameter(<span class="string">"name"</span>);</span><br><span class="line">name=<span class="keyword">new</span> String(name.getBytes(<span class="string">"iso8859-1"</span>), <span class="string">"utf-8"</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//将商品加入到购物车</span></span><br><span class="line"><span class="comment">//从session中获取购物车</span></span><br><span class="line">Map&lt;String, Integer&gt; map = (Map&lt;String, Integer&gt;) request.getSession().getAttribute(<span class="string">"cart"</span>);</span><br><span class="line">Integer count=<span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//判断购物车是否为空</span></span><br><span class="line"><span class="keyword">if</span>(map==<span class="keyword">null</span>) &#123;</span><br><span class="line">	<span class="comment">//第一次购物 创建购物车</span></span><br><span class="line">	map = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//将购物车放入session中</span></span><br><span class="line">	request.getSession().setAttribute(<span class="string">"cart"</span>,map);</span><br><span class="line">	count=<span class="number">1</span>;</span><br><span class="line">&#125;<span class="keyword">else</span> &#123;</span><br><span class="line">	<span class="comment">//购物车不为空  继续判断是否存在该商品</span></span><br><span class="line">	count=map.get(name);</span><br><span class="line">	<span class="keyword">if</span>(count==<span class="keyword">null</span>) &#123;</span><br><span class="line">		<span class="comment">//没有该商品</span></span><br><span class="line">		count=<span class="number">1</span>;</span><br><span class="line">	&#125;<span class="keyword">else</span> &#123;</span><br><span class="line">		<span class="comment">//有该商品</span></span><br><span class="line">		count++;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//将session放入购物车</span></span><br><span class="line">map.put(name, count);</span><br><span class="line"><span class="comment">//提示信息		</span></span><br><span class="line">w.print(<span class="string">"已将&lt;b&gt;"</span>+name+<span class="string">"&lt;/b&gt;放入购物车中!&lt;/br&gt;"</span>);</span><br><span class="line">w.print(<span class="string">"&lt;a href='"</span>+request.getContextPath()+<span class="string">"/product_list.jsp'&gt;继续购物&lt;/a&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;"</span>);</span><br><span class="line">w.print(<span class="string">"&lt;a href='"</span>+request.getContextPath()+<span class="string">"/cart.jsp'&gt;查看购物车&lt;/a&gt;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;"</span>);</span><br></pre></td></tr></table></figure>
-
-      
-
-      
-        <div class="page-reward">
-          <a href="javascript:;" class="page-reward-btn tooltip-top">
-            <div class="tooltip tooltip-east">
-            <span class="tooltip-item">
-              赏
-            </span>
-            <span class="tooltip-content">
-              <span class="tooltip-text">
-                <span class="tooltip-inner">
-                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃包子<i class="icon icon-quo-right"></i></p>
-                  <div class="reward-box">
-                    
-                    
-                    <div class="reward-box-item">
-                      <img class="reward-img" src="/img/weixinpay.png">
-                      <span class="reward-type">微信</span>
-                    </div>
-                    
-                  </div>
-                </span>
-              </span>
-            </span>
-          </div>
-          </a>
-        </div>
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
+        <div class="article-info info-on-right">
+          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">servlet</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">案例</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Ajax</a>
         		</li>
       		
 		</ul>
 	</div>
 
-      
+          
 	<div class="article-category tagcloud">
 		<i class="icon-book icon"></i>
 		<ul class="article-tag-list">
@@ -251,142 +204,17 @@
 	</div>
 
 
-      
-
-      
-        
-<div class="share-btn share-icons tooltip-left">
-  <div class="tooltip tooltip-east">
-    <span class="tooltip-item">
-      <a href="javascript:;" class="share-sns share-outer">
-        <i class="icon icon-share"></i>
-      </a>
-    </span>
-    <span class="tooltip-content">
-      <div class="share-wrap">
-        <div class="share-icons">
-          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
-            <i class="icon icon-weibo"></i>
-          </a>
-          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
-            <i class="icon icon-weixin"></i>
-          </a>
-          <a class="qq share-sns" href="javascript:;" data-type="qq">
-            <i class="icon icon-qq"></i>
-          </a>
-          <a class="douban share-sns" href="javascript:;" data-type="douban">
-            <i class="icon icon-douban"></i>
-          </a>
-          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
-            <i class="icon icon-qzone"></i>
-          </a>
-          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
-            <i class="icon icon-facebook"></i>
-          </a>
-          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
-            <i class="icon icon-twitter"></i>
-          </a>
-          <a class="google share-sns" href="javascript:;" data-type="google">
-            <i class="icon icon-google"></i>
-          </a>
         </div>
-      </div>
-    </span>
-  </div>
-</div>
-
-<div class="page-modal wx-share js-wx-box">
-    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
-    <p>扫一扫，分享到微信</p>
-    <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2018/11/04/cookieAndSession/" alt="微信分享二维码">
-    </div>
-</div>
-
-<div class="mask js-mask"></div>
-      
-      <div class="clearfix"></div>
-    </div>
+        <div class="clearfix"></div>
+    </header>
   </div>
 </article>
-
-  
-<nav id="article-nav">
-  
-    <a href="/2018/12/04/ajax/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          原生Ajax实现get/post请求和用户名判断案例
-        
-      </div>
-    </a>
   
   
-    <a href="/2018/11/01/Servlet之登陆验证/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">Servlet之登陆验证</div>
-      <i class="icon-circle-right"></i>
-    </a>
-  
-</nav>
-
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-        <div class="toc-container tooltip-left">
-            <i class="icon-font icon-category"></i>
-            <div class="tooltip tooltip-east">
-                <span class="tooltip-item">
-                </span>
-                <span class="tooltip-content">
-                    <div class="toc-article">
-                    目录，不存在的…
-                    </div>
-                </span>
-            </div>
-        </div>
-        
-    </div>
-</aside>
-
-
-
-  
-  
+    </div></section>
   
 
-  
-
-  
-
-  
-  <div id="gitment-ctn"></div> 
-<link rel="stylesheet" href="https://jjeejj.github.io/css/gitment.css">
-<script src="https://jjeejj.github.io/js/gitment.js"></script>
-<script>
-var gitment = new Gitment({
-  id: "Sun Nov 04 2018 20:41:47 GMT+0800",
-  owner: 'ilovejava1314',
-  repo: 'ilovejava1314.github.io',
-  oauth: {
-    client_id: 'a42ea5c85876007498fe',
-    client_secret: '439befe77d147a29587fad37f571bf7225c2c4ac',
-  },
-})
-gitment.render('gitment-ctn')
-</script>
-  
+    
 
 
           </div>
@@ -409,9 +237,9 @@ gitment.render('gitment-ctn')
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: true,
+		isPost: false,
 		isArchive: false,
-		isTag: false,
+		isTag: true,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,
