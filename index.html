@@ -152,6 +152,158 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-2018-12-04-jQuery中的Ajax" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/12/04/2018-12-04-jQuery中的Ajax/">jQuery中的Ajax实现用户名判断，百度搜索，省市联动案例</a>
+    </h1>
+  
+
+        
+        <a href="/2018/12/04/2018-12-04-jQuery中的Ajax/" class="archive-article-date">
+  	<time datetime="2018-12-04T12:31:25.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-12-04</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="jQuery中的ajax"><a href="#jQuery中的ajax" class="headerlink" title="jQuery中的ajax"></a>jQuery中的ajax</h3><p>有四种方式实现ajax:</p>
+<ul>
+<li><p>1.jquery对象.load(url,params,function(数据){});</p>
+</li>
+<li><p>2: $.get(url,params,function(数据){},type);</p>
+<p>​    发送get请求的ajax<br>​        url:请求的路径<br>​        params:请求的参数 参数为key\value的形式 key=value  {“”:””,””:””}<br>​        fn:回调函数 参数就是服务器发送回来的数据<br>​        type:返回内容格式，xml, html, script, json, text, _default。    以后用”json”</p>
+</li>
+<li><p>3.$.post(url,params,function(数据){},type);</p>
+<p>​    发送post请求的ajax<br>​    若结果为json格式,  打印返回值的时候是一个对象<br>​        例如若json为 {“result”:”success”,”msg”:”成功”}<br>​        获取msg 只需要    参数.msg</p>
+</li>
+<li><p>4.$.ajax([选项]);</p>
+<p>​        选项的可选值:<br>​            url:请求路径<br>​            type:请求方法<br>​            data:发送到服务器的数据<br>​            success:fn 成功以后的回调<br>​            error:fn 异常之后的回调<br>​            dataType:返回内容格式 经常使用json<br>​            async:设置是否是异步请求<br>​        例如:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">$.ajax(&#123;</span><br><span class="line">		url:<span class="string">"/day15/demo1"</span>,</span><br><span class="line">		type:<span class="string">"post"</span>,</span><br><span class="line">		data:<span class="string">"username=tom"</span>,</span><br><span class="line">		success:<span class="function"><span class="keyword">function</span>(<span class="params">d</span>)</span>&#123;</span><br><span class="line">			alert(d.msg);</span><br><span class="line">		&#125;,</span><br><span class="line">		error:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;&#125;,</span><br><span class="line">		dataType:<span class="string">"json"</span></span><br><span class="line">	&#125;);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="案例之使用jquery的ajax判断用户是否被占用"><a href="#案例之使用jquery的ajax判断用户是否被占用" class="headerlink" title="案例之使用jquery的ajax判断用户是否被占用"></a>案例之使用jquery的ajax判断用户是否被占用</h3><ul>
+<li><p>创建数据库和用户表，新建项目，添加jar包和工具类以及配置文件</p>
+</li>
+<li><p>新建一个注册页面 表单 在用户名文本框上输入用户名 失去焦点</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">td</span>&gt;</span><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"text"</span>  <span class="attr">name</span>=<span class="string">"username"</span>  <span class="attr">onblur</span>=<span class="string">"checkUsername(this)"</span>&gt;</span><span class="tag">&lt;/<span class="name">td</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>编写checkUsername(this)方法</p>
+</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	$(<span class="string">"input[name='username']"</span>).blur(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">		<span class="comment">//alert($value);</span></span><br><span class="line">		<span class="keyword">var</span> $value = $(<span class="keyword">this</span>).val();</span><br><span class="line">		$.get(<span class="string">"/ajax_json/checkUsername4Ajax"</span>,<span class="string">"username="</span>+$value,<span class="function"><span class="keyword">function</span>(<span class="params">d</span>)</span>&#123;</span><br><span class="line">			<span class="comment">//alert(d);</span></span><br><span class="line">			<span class="keyword">if</span>(d==<span class="number">1</span>)&#123;</span><br><span class="line">				$(<span class="string">"#un_msg"</span>).html(<span class="string">"&lt;font color='green'&gt;名字可用&lt;/font&gt;"</span>);</span><br><span class="line">			&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">				$(<span class="string">"#un_msg"</span>).html(<span class="string">"&lt;font color='red'&gt;名字已被占用&lt;/font&gt;"</span>);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;);</span><br><span class="line">	&#125;);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p>编写CheckUsername4AjaxServlet(get)</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//接受用户名</span></span><br><span class="line">String username = request.getParameter(<span class="string">"username"</span>);</span><br><span class="line">username=<span class="keyword">new</span> String(username.getBytes(<span class="string">"iso-8859-1"</span>),<span class="string">"utf-8"</span>);</span><br><span class="line"><span class="comment">//调用service 完成查询操作 返回值 user</span></span><br><span class="line">System.out.println(username);</span><br><span class="line">User u=<span class="keyword">null</span>;</span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">	u = <span class="keyword">new</span> UserService().checkUsername4Ajax(username);</span><br><span class="line">&#125; <span class="keyword">catch</span> (SQLException e) &#123;</span><br><span class="line">	e.printStackTrace();</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//判断user 写回信息</span></span><br><span class="line"><span class="keyword">if</span>(u==<span class="keyword">null</span>) &#123;</span><br><span class="line">	response.getWriter().print(<span class="string">"1"</span>);</span><br><span class="line">&#125;<span class="keyword">else</span> &#123;</span><br><span class="line">	response.getWriter().print(<span class="string">"0"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>编写UserService类与UserDao类就不必多说了，从数据库中查询username为所传的username，若有则返回的uer对象不为空，返回响应文本为”1”,若无则返回响应文本为”0”。</p>
+</li>
+</ul>
+<h3 id="案例之使用jquery的ajax实现百度搜索下拉"><a href="#案例之使用jquery的ajax实现百度搜索下拉" class="headerlink" title="案例之使用jquery的ajax实现百度搜索下拉"></a>案例之使用jquery的ajax实现百度搜索下拉</h3><ul>
+<li><p>创建数据库和用户表，新建项目，添加jar包和工具类以及配置文件</p>
+</li>
+<li><p>新建一个jsp页面 表单 在搜索文本框上输入关键词(keyword) 键盘弹起触发事件(keyon)，创建一个div模块，放入查找出来的模糊搜索内容:</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"did"</span>   <span class="attr">style</span>=<span class="string">"border: 1px solid grey; width:171px; position: relative; left: -34px; display:none; "</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>编写SearchKwServlet：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//设置编码</span></span><br><span class="line">request.setCharacterEncoding(<span class="string">"utf-8"</span>);</span><br><span class="line">response.setContentType(<span class="string">"text/html;charset=utf-8"</span>);</span><br><span class="line"><span class="comment">//获取kw</span></span><br><span class="line">String kw = request.getParameter(<span class="string">"kw"</span>);</span><br><span class="line"><span class="comment">//调用service 返回值list</span></span><br><span class="line">List&lt;Object&gt; list = <span class="keyword">null</span>;</span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">	 list = <span class="keyword">new</span> KeyWordService().findKw4Ajax(kw);</span><br><span class="line">&#125; <span class="keyword">catch</span> (SQLException e) &#123;</span><br><span class="line">	<span class="comment">// TODO Auto-generated catch block</span></span><br><span class="line">	e.printStackTrace();</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//3.将数据  [a,aa,aaa] 去掉括号 写回去  a,aaa,aa</span></span><br><span class="line"><span class="keyword">if</span>(list!=<span class="keyword">null</span> &amp;&amp; list.size()&gt;<span class="number">0</span>)&#123;</span><br><span class="line">		String s = list.toString();</span><br><span class="line">		s=s.substring(<span class="number">1</span>, s.length()-<span class="number">1</span>);</span><br><span class="line">		System.out.println(s);</span><br><span class="line">		response.getWriter().println(s);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>KeyWordService().findKw4Ajax(kw)不必多说，完成对数据库keyword表中的kw属性模糊查找</p>
+</li>
+<li><p>为搜索框编写keyon事件function：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">	$(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">		$(<span class="string">"#tid"</span>).keyup(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">		<span class="comment">//alert($value);</span></span><br><span class="line">		<span class="keyword">var</span> $value = $(<span class="keyword">this</span>).val();</span><br><span class="line">		<span class="keyword">if</span>($value!=<span class="literal">null</span> &amp;&amp; $value!=<span class="string">''</span>)&#123;</span><br><span class="line">			$(<span class="string">"#did"</span>).html(<span class="string">""</span>);</span><br><span class="line">			$.post(<span class="string">"/ajax_json/searchKw"</span>,<span class="string">"kw="</span>+$value,<span class="function"><span class="keyword">function</span>(<span class="params">d</span>)</span>&#123;</span><br><span class="line">				<span class="comment">//alert(d);</span></span><br><span class="line">				<span class="keyword">if</span>(d!=<span class="string">''</span>)&#123;</span><br><span class="line">					<span class="keyword">var</span> arr=d.split(<span class="string">","</span>);</span><br><span class="line">					$(arr).each(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">						<span class="comment">//将每一个值放入id为did的div标签中</span></span><br><span class="line">						$(<span class="string">"#did"</span>).append($(<span class="string">"&lt;div&gt;"</span>+<span class="keyword">this</span>+<span class="string">"&lt;/div&gt;"</span>));</span><br><span class="line">					&#125;);</span><br><span class="line">					<span class="comment">//div显示</span></span><br><span class="line">					$(<span class="string">"#did"</span>).show();</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;);</span><br><span class="line">		&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">			$(<span class="string">"#did"</span>).hide();</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="案例之省市联动"><a href="#案例之省市联动" class="headerlink" title="案例之省市联动"></a>案例之省市联动</h3><ul>
+<li><p>创建数据库和用户表，新建项目，添加jar包和工具类以及配置文件</p>
+</li>
+<li><p>新建一个jsp页面含两个下拉选项(一个省,一个市)，首先通过javascript编写查询所有省份的方法:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line"><span class="comment">//页面加载成功 查询所有的省</span></span><br><span class="line">$.get(<span class="string">"/ajax_json/selectPro"</span>,<span class="function"><span class="keyword">function</span>(<span class="params">d</span>)</span>&#123;</span><br><span class="line">	<span class="comment">//alert(d)</span></span><br><span class="line">	<span class="keyword">var</span> $pro=$(<span class="string">"#proId"</span>);</span><br><span class="line">	$(d).each(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">		$pro.append($(<span class="string">"&lt;option value="</span>+<span class="keyword">this</span>.provinceID+<span class="string">"&gt;"</span>+<span class="keyword">this</span>.name+<span class="string">"&lt;/option&gt;"</span>));</span><br><span class="line">	&#125;);</span><br><span class="line">&#125;,<span class="string">"json"</span>);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>编写selectProServlet(查找省份):</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//调用service 返回list</span></span><br><span class="line">List&lt;Province&gt; list=<span class="keyword">null</span>;</span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">	list = <span class="keyword">new</span> ProvinceService().findAll();</span><br><span class="line">&#125; <span class="keyword">catch</span> (SQLException e) &#123;</span><br><span class="line">	e.printStackTrace();</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//将list封装成json</span></span><br><span class="line">JSONArray json = JSONArray.fromObject(list);</span><br><span class="line"><span class="comment">//将得到的数据写回浏览器</span></span><br><span class="line">response.setContentType(<span class="string">"text/html;charset=utf-8"</span>);</span><br><span class="line">response.getWriter().print(json);</span><br><span class="line">System.out.println(json);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>这样省份的下拉选单就完成了,接下来就是给当用户选中某省份时,change事件的编写:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//给省份下拉选派发change事件</span></span><br><span class="line">	$(<span class="string">"#proId"</span>).change(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">		<span class="comment">//获取省份id</span></span><br><span class="line">		<span class="keyword">var</span> $pid=$(<span class="keyword">this</span>).val();</span><br><span class="line">		alert($pid);</span><br><span class="line">		<span class="comment">//发送ajax请求 查询所有的市</span></span><br><span class="line">		$.get(<span class="string">"/ajax_json/selectCity"</span>,&#123;<span class="string">"pid"</span>:$pid&#125;,<span class="function"><span class="keyword">function</span>(<span class="params">obj</span>)</span>&#123;</span><br><span class="line">			<span class="comment">//alert(obj);</span></span><br><span class="line">			<span class="keyword">var</span> $city=$(<span class="string">"#cityId"</span>);</span><br><span class="line">			$city.html(<span class="string">"&lt;option&gt;-请选择-&lt;/option&gt;"</span>);</span><br><span class="line">			<span class="keyword">if</span>(obj!=<span class="literal">null</span>)&#123;</span><br><span class="line">				$(obj).each(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">					$city.append($(<span class="string">"&lt;option value='"</span>+<span class="keyword">this</span>.cityid+<span class="string">"'&gt;"</span>+<span class="keyword">this</span>.name+<span class="string">"&lt;/option&gt;"</span>));</span><br><span class="line">				&#125;);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;,<span class="string">"json"</span>);</span><br><span class="line">	&#125;);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>最后就是编写就是selectCityServlet:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">request.setCharacterEncoding(<span class="string">"utf-8"</span>);</span><br><span class="line">response.setContentType(<span class="string">"text/html;charset=utf-8"</span>);</span><br><span class="line"><span class="comment">//获取省的id</span></span><br><span class="line">String pid = request.getParameter(<span class="string">"pid"</span>);</span><br><span class="line">System.out.println(pid);</span><br><span class="line"><span class="comment">//调用service,完成查询操作,返回值list</span></span><br><span class="line">List&lt;City&gt; list = <span class="keyword">null</span>;</span><br><span class="line"><span class="keyword">try</span> &#123;</span><br><span class="line">	list = <span class="keyword">new</span> CityService().findCityByPid(pid);</span><br><span class="line">&#125; <span class="keyword">catch</span> (SQLException e) &#123;</span><br><span class="line">	e.printStackTrace();</span><br><span class="line">&#125;</span><br><span class="line">JSONArray json = JSONArray.fromObject(list);</span><br><span class="line">response.getWriter().print(json);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>jQuery中的ajax要比原生的ajax方便很多,实现起来很快,一般主要使用的方法是get和post,分别针对get，post请求足矣。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Ajax</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">jQuery</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Java//" class="article-tag-list-link color5">Java</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/12/04/2018-12-04-jQuery中的Ajax/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-ajax" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
@@ -1101,100 +1253,6 @@ jsp注释 &lt;%--  --%&gt;
 
 
   
-    <article id="post-字典知识点整理" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/09/01/字典知识点整理/">Python基本类型之字典</a>
-    </h1>
-  
-
-        
-        <a href="/2018/09/01/字典知识点整理/" class="archive-article-date">
-  	<time datetime="2018-09-01T13:34:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-09-01</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="字典（dict）知识点"><a href="#字典（dict）知识点" class="headerlink" title="字典（dict）知识点"></a>字典（dict）知识点</h2><p>1.字典的创建</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># &#123;&#125; 或者 dict()</span></span><br></pre></td></tr></table></figure>
-<p>2.字典的元素</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 字典中的元素是以键值对的形式（key:value）</span></span><br><span class="line"><span class="comment"># key为不可变数据类型,必须唯一  字符串  数字  元组</span></span><br><span class="line"><span class="comment"># value可以不唯一为任意数据类型</span></span><br><span class="line"><span class="comment"># 元素与元素之间用“,”进行隔开</span></span><br><span class="line">info = &#123;<span class="string">"name"</span>: <span class="string">"陈独秀"</span>, <span class="string">"sex"</span>: <span class="string">"男"</span>&#125;</span><br></pre></td></tr></table></figure>
-<p>3.字典的元素访问</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 访问字典中存在的键</span></span><br><span class="line">字典名[key的名]   或   字典名.get(key的名)</span><br><span class="line"><span class="comment"># 访问字典中不存在的键</span></span><br><span class="line">字典名.get(key的名)  返回：<span class="keyword">None</span> </span><br><span class="line"><span class="comment"># get()可以给字典中不存在的键赋值</span></span><br><span class="line">字典名.get(key的名, 值)</span><br></pre></td></tr></table></figure>
-<p>4.字典的基本操作</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 增删改查  其他</span></span><br><span class="line"><span class="comment"># 增</span></span><br><span class="line">字典名[新的键名] = 新的值</span><br><span class="line"><span class="comment"># 删</span></span><br><span class="line"><span class="keyword">del</span>  clear()</span><br><span class="line"><span class="comment"># 改</span></span><br><span class="line">字典名[键的名字] = 新的值</span><br><span class="line"><span class="comment"># 查</span></span><br><span class="line">字典名[键的名字]</span><br><span class="line"><span class="comment"># 其他</span></span><br><span class="line">len()  keys()  values()   items()</span><br></pre></td></tr></table></figure>
-<p>5.遍历</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 遍历key</span></span><br><span class="line"><span class="comment"># 遍历value</span></span><br><span class="line"><span class="comment"># 遍历元素</span></span><br><span class="line"><span class="comment"># 遍历key and value</span></span><br></pre></td></tr></table></figure>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Python//" class="article-tag-list-link color2">Python</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/09/01/字典知识点整理/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
     <article id="post-Python基本类型之数字,字符串" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
@@ -1420,6 +1478,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Ajax</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">jQuery</a>
               </li>
             
             <div class="clearfix"></div>
