@@ -152,6 +152,186 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-Listener_Filter" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/12/05/Listener_Filter/">Listener和Filter总结</a>
+    </h1>
+  
+
+        
+        <a href="/2018/12/05/Listener_Filter/" class="archive-article-date">
+  	<time datetime="2018-12-05T12:43:35.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-12-05</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="listener-监听器"><a href="#listener-监听器" class="headerlink" title="listener(监听器):"></a>listener(监听器):</h2><ul>
+<li>作用:</li>
+</ul>
+<p>​    监听web中中的域对象 ServletContext ServletRequest HttpSession</p>
+<ul>
+<li>监听内容:</li>
+</ul>
+<p>​    监听三个对象的创建和销毁<br>​    监听三个对象属性的变化<br>​    监听session中javabean的状态</p>
+<p>​    注意:listener全部是接口</p>
+<ul>
+<li><p>监听三个对象的创建和销毁</p>
+<p>ServletContextListener<br>ServletRequestListener<br>HttpSessionListener</p>
+</li>
+<li><p>监听三个对象属性的变化</p>
+<p>ServletContextAttributeListener<br>ServletRequestAttributeListener<br>HttpSessionAttributeListener</p>
+</li>
+<li><p>监听session中javabean的状态</p>
+<p>HttpSessionActivationListener(钝化和活化)<br>HttpSessionBindingListener(绑定和解绑)</p>
+</li>
+<li><p>使用步骤:</p>
+<p>1.编写一个类 实现接口<br>2.重写方法<br>3.编写配置文件(大部分都是)</p>
+</li>
+<li><p>监听三个对象的创建和销毁</p>
+</li>
+</ul>
+<p>​    ServletContextListener<br>​        创建:服务器启动的时候,会为每一个项目都创建一个servletContext<br>​        销毁:服务器关闭的时候,或者项目被移除的时候<br>​        以后用来加载配置文件<br>​    ServletRequestListener<br>​        创建:请求来的时候<br>​        销毁:响应生成的时候<br>​    HttpSessionListener<br>​        创建:<br>​            java中第一次调用request.getSession的时候<br>​            jsp访问的时候创建<br>​        销毁:<br>​            三种情况:<br>​                session超时<br>​                手动销毁session<br>​                服务器非正常关闭</p>
+<ul>
+<li>监听三个对象属性的变化(添加 替换 删除)</li>
+</ul>
+<p>​    ServletContextAttributeListener<br>​    ServletRequestAttributeListener<br>​    HttpSessionAttributeListener</p>
+<ul>
+<li>监听session中javabean的状态</li>
+</ul>
+<p>​    注意:这两个接口需要javabean实现.是让javabean感知到自己的状态<br>​<br>​    HttpSessionBindingListener(绑定和解绑)<br>​        检测java是否添加到session或者从session中移除<br>​    HttpSessionActivationListener(钝化和活化)<br>​        钝化:javabean从session中序列化到磁盘上<br>​        活化:javabean从磁盘上加载到了session中<br>​        可以通过配置文件修改javabean什么时候钝化<br>​            修改一个项目<br>​                只需要在项目下/meta-info创建一个context.xml<br>​                内容如下:</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">Context</span>&gt;</span></span><br><span class="line">	<span class="comment">&lt;!--maxIdleSwap	:1分钟 如果session不使用就会序列化到硬盘.directory	:itheima 序列化到硬盘的文件存放的位置.--&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">Manager</span> <span class="attr">className</span>=<span class="string">"org.apache.catalina.session.PersistentManager"</span> <span class="attr">maxIdleSwap</span>=<span class="string">"1"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">Store</span> <span class="attr">className</span>=<span class="string">"org.apache.catalina.session.FileStore"</span> <span class="attr">directory</span>=<span class="string">"itheima"</span>/&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">Manager</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">Context</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="filter-过滤器"><a href="#filter-过滤器" class="headerlink" title="filter:过滤器"></a>filter:过滤器</h2><ul>
+<li><p>功能:过滤请求和响应</p>
+</li>
+<li><p>作用:</p>
+<p>​        自动登录.<br>​        统一编码.<br>​        过滤关键字<br>​        ….<br>​           Filter是一个接口</p>
+</li>
+<li><p>编写filter步骤:</p>
+</li>
+</ul>
+<p>​    1.编写一个类<br>​        a.实现filter接口<br>​        b.重写方法<br>​    2.编写配置文件<br>​        a.注册filter<br>​        b.绑定路径<br>​    3.测试</p>
+<ul>
+<li>Filter接口的方法:</li>
+</ul>
+<p>​    init(FilterConfig config):初始化操作<br>​    doFilter(ServletRequest request, ServletResponse response, FilterChain chain):处理业务逻辑<br>​    destroy() :销毁操作</p>
+<ul>
+<li>filter的生命周期(与servlet相似)</li>
+</ul>
+<p>​    filter单实例多线程<br>​    filter在服务器启动的时候 服务器创建filter 调用init方法 实现初始化操作<br>​    请求来的时候,创建一个线程 根据路径调用dofilter 执行业务逻辑<br>​    当filter被移除的时候或者服务器正常关闭的时候 调用destory方法 执行销毁操作.</p>
+<ul>
+<li>FilterChain:过滤链</li>
+</ul>
+<p>​    通过chain的dofilter方法,可以将请求放行到下一个过滤器,直到最后一个过滤器放行才可以访问到servlet|jsp<br>​    doFilter()放行方法</p>
+<ul>
+<li>★url-pattern配置</li>
+</ul>
+<p>​    有以下3种<br>​    完全匹配    必须以”/“ 开始  例如: /a/b<br>​    目录匹配    必须以”/“ 开始 以”<em>“结束  例如:/a/b/</em><br>​    后缀名匹配    以”<em>.”开始 以字符结束   例如 :  </em>.jsp  <em>.do  </em>.action<br>​        例如:<br>​    afilter  路径  /*<br>​    bFilter  路径  /demo4<br><strong>★一个资源有可能被多个过滤器匹配成功,多个过滤器的执行顺序是按照web.xml中filter-mapping的顺序执行的</strong></p>
+<h3 id="案例1-自动登录"><a href="#案例1-自动登录" class="headerlink" title="案例1-自动登录"></a>案例1-自动登录</h3><ul>
+<li>需求:</li>
+</ul>
+<p>​    登录的时候,勾选自动登录,登录成功之后,关闭浏览器,下一次访问网站的时候完成登录操作(自动登录).</p>
+<ul>
+<li>技术分析:</li>
+</ul>
+<p>​    filter<br>​    cookie</p>
+<ul>
+<li>步骤分析:</li>
+</ul>
+<p>​    1.数据库和表</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">database</span> mydb;</span><br><span class="line"><span class="keyword">use</span> mydb;</span><br><span class="line"><span class="keyword">create</span> <span class="keyword">table</span> <span class="keyword">user</span>(</span><br><span class="line">	<span class="keyword">id</span> <span class="built_in">int</span> primary <span class="keyword">key</span> auto_increment,</span><br><span class="line">	username <span class="built_in">varchar</span>(<span class="number">20</span>),</span><br><span class="line">	<span class="keyword">password</span> <span class="built_in">varchar</span>(<span class="number">20</span>)</span><br><span class="line">);</span><br><span class="line"><span class="keyword">insert</span> <span class="keyword">into</span> <span class="keyword">user</span> <span class="keyword">values</span>(<span class="literal">null</span>,<span class="string">'tom'</span>,<span class="string">'123'</span>);</span><br></pre></td></tr></table></figure>
+<p>​    2.web项目<br>​        jar包 工具类 配置文件<br>​    3.新建一个登录页面 表单<br>​    4.表单提交 loginservlet<br>​        接受用户名和密码<br>​        调用service完成登录操作,返回值User<br>​        判断user是否为空<br>​            若不为空,将user放入session中<br>​                判断是否勾选了自动登录<br>​                若勾选了,需要将用户名和密码写回浏览器，</p>
+<p>servlet判断自动登陆的代码如下:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">request.getSession().setAttribute(<span class="string">"user"</span>, user);</span><br><span class="line"><span class="keyword">if</span>(Constant_IsLogin.IS_AUTO_LOGIN.equals(request.getParameter(<span class="string">"autoLogin"</span>))) &#123;</span><br><span class="line">	Cookie c = <span class="keyword">new</span> Cookie(<span class="string">"autologin"</span>, username+<span class="string">"-"</span>+password);</span><br><span class="line">	c.setMaxAge(<span class="number">3600</span>);</span><br><span class="line">	c.setPath(request.getContextPath()+<span class="string">"/"</span>);</span><br><span class="line">	response.addCookie(c);</span><br></pre></td></tr></table></figure>
+<p>​    5.下次访问网站的时候<br>​        过滤器拦截任意请求<br>​            判断有无指定的cookie<br>​                有cookie,获取用户名和密码<br>​                调用service完成登录操作,返回user<br>​                当user不为空的时候将user放入session中.</p>
+<p>filter的代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//强制转换</span></span><br><span class="line">HttpServletRequest request = (HttpServletRequest) req;</span><br><span class="line">HttpServletResponse response = (HttpServletResponse) res;</span><br><span class="line"><span class="comment">//完成自动登陆</span></span><br><span class="line"><span class="comment">//判断session中有无登陆的用户，没有的话继续自动登陆</span></span><br><span class="line">User user = (User) request.getSession().getAttribute(<span class="string">"user"</span>);</span><br><span class="line"><span class="keyword">if</span>(user==<span class="keyword">null</span>) &#123;</span><br><span class="line">	<span class="comment">//没有用户 需要自动登陆</span></span><br><span class="line">	<span class="comment">//判断访问资源是否和登陆注册相关 若相关则不需要自动登陆</span></span><br><span class="line">	String path = request.getRequestURI();</span><br><span class="line">	<span class="keyword">if</span>(!path.contains(<span class="string">"/login"</span>)) &#123;</span><br><span class="line">		<span class="comment">//获取指定的cookie</span></span><br><span class="line">		Cookie cookie = CookieUtils.getCookieByName(<span class="string">"autologin"</span>, request.getCookies());</span><br><span class="line">		<span class="comment">//判断cookie是否为空</span></span><br><span class="line">		<span class="comment">//若不为空 取出用户名和密码的值 调用service完成登陆操作 返回一个user对象 判断user是否为空 不为空存入session</span></span><br><span class="line">		<span class="keyword">if</span>(cookie!=<span class="keyword">null</span>) &#123;</span><br><span class="line">			String username = cookie.getValue().split(<span class="string">"-"</span>)[<span class="number">0</span>];</span><br><span class="line">			String password = cookie.getValue().split(<span class="string">"-"</span>)[<span class="number">1</span>];</span><br><span class="line">			System.out.println(username+<span class="string">"  "</span>+password);</span><br><span class="line">			<span class="keyword">try</span> &#123;</span><br><span class="line">				user = <span class="keyword">new</span> UserService().login(username, password);</span><br><span class="line">			&#125; <span class="keyword">catch</span> (SQLException e) &#123;</span><br><span class="line">				e.printStackTrace();</span><br><span class="line">			&#125;</span><br><span class="line">			</span><br><span class="line">			<span class="keyword">if</span>(user!=<span class="keyword">null</span>) &#123;</span><br><span class="line">				request.getSession().setAttribute(<span class="string">"user"</span>, user);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//放行</span></span><br><span class="line">chain.doFilter(req, res);</span><br></pre></td></tr></table></figure>
+<h2 id="filter总结"><a href="#filter总结" class="headerlink" title="filter总结"></a>filter总结</h2><ul>
+<li>filterConfig:</li>
+</ul>
+<p>​    过滤器的配置对象<br>​    作用:<br>​        获取全局管理者<br>​        获取当前filter的名称<br>​        获取当前filter的初始化参数</p>
+<ul>
+<li>filter-mapping的子标签(理解)</li>
+</ul>
+<p>​    servlet-name:匹配那个servlet 值写的是serlvet标签中servlet-name的值<br>​        建议:不要在一个filter中重复的匹配servlet<br>​            例如: serlvet的url-pattern为  /a/b/hello   serlvetname:HelloServlet<br>​                如果filter中的url-pattern  /*<br>​                最好不要在写 servlet-name:HelloServlet<br>​            </p>
+<ul>
+<li>dispatcher:</li>
+</ul>
+<p>​        匹配哪种请求?<br>​        默认的是REQUEST,一旦显式的写出来哪种请求,默认就不起作用了<br>​            理解<br>​                REQUEST:从浏览器发送过来的请求(默认) 理解<br>​                FORWARD:转发过来的请求 理解<br>​<br>​            拓展<br>​                ERROR:因服务器错误而发送过来的请求<br>​                INCLUDE:包含过来的请求</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Listener</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Filter</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+		<i class="icon-book icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="/categories/Java//" class="article-tag-list-link color5">Java</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/12/05/Listener_Filter/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-2018-12-04-jQuery中的Ajax" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
@@ -1253,97 +1433,6 @@ jsp注释 &lt;%--  --%&gt;
 
 
   
-    <article id="post-Python基本类型之数字,字符串" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/09/01/Python基本类型之数字,字符串/">Python基本类型之数字,字符串</a>
-    </h1>
-  
-
-        
-        <a href="/2018/09/01/Python基本类型之数字,字符串/" class="archive-article-date">
-  	<time datetime="2018-09-01T13:34:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-09-01</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>一.基本数据类型 (数字 字符串 列表 字典 元组 集合)</p>
-<p>1.数字类型  是不可变类型，一旦创建无法被修改，以后对它的所有操作都是得到一个新的值</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">int ：整数类型</span><br><span class="line">float：浮点型（小数类型）</span><br><span class="line">complex：复数类型 <span class="number">1</span>+<span class="number">2j</span></span><br><span class="line"></span><br><span class="line">-类型转换</span><br><span class="line">    a=<span class="string">"1"</span></span><br><span class="line">    a=int(a)</span><br><span class="line">    a=float(a)</span><br><span class="line">    complex(a,b) --&gt;a+bj</span><br><span class="line">-基本的运算符</span><br><span class="line">    + — * /</span><br><span class="line">    % 取余运算</span><br><span class="line">    //取整运算</span><br><span class="line">    **次方运算</span><br><span class="line">-基本的内置函数</span><br><span class="line">    abs() 取绝对值</span><br><span class="line">    max() 取最大值</span><br><span class="line">    min() 取最小值</span><br><span class="line">    pow(a,b)  == a**b a的b次方</span><br><span class="line">    round(a,n) 对a进行四舍五入保留至第n位</span><br><span class="line">    </span><br><span class="line">    封装在math模块中</span><br><span class="line">    第一步导入模块</span><br><span class="line">    模块名.函数名</span><br><span class="line">        -ceil()  向上取整     math.ceil()</span><br><span class="line">        -floor() 向下取整     math.floor()</span><br><span class="line">        -sqrt()  取算术平方根 math.sqrt()</span><br><span class="line">        -math.pi  Π的值</span><br><span class="line">        三角函数(接收幅度)：</span><br><span class="line">        math.sin()</span><br><span class="line">        math.cos()</span><br><span class="line">        math.tan()</span><br><span class="line"></span><br><span class="line">    随机数函数</span><br><span class="line">    封装在random</span><br><span class="line">        -randint(a,b) 随机生成a，b之间的一个整数</span><br><span class="line">        -random()     随机生成<span class="number">0</span><span class="number">-1</span>之间的小数</span><br></pre></td></tr></table></figure>
-<p>2.字符串 ：只要是引号(“”或’’)括起来的都是字符串，没有字符的概念<br>a = “hello”   <--->  a=’hello’</---></p>
-<p>-索引<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">a[索引值]</span><br><span class="line">a[<span class="number">1</span>]=<span class="string">'e'</span>;</span><br><span class="line">0-4--&gt;hello  </span><br><span class="line">-1到-5--&gt;olleh</span><br></pre></td></tr></table></figure></p>
-<p>-切片<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">z&gt;<span class="number">0</span>:</span><br><span class="line">a[x:y:z]  取到x到y<span class="number">-1</span>,跳数为z；不写则z默认为<span class="number">1</span></span><br><span class="line">a[<span class="number">1</span>:<span class="number">4</span>]  顾头不顾尾</span><br><span class="line">注意：</span><br><span class="line">    a[:y]  从头取到y</span><br><span class="line">    a[x:]  从x取到最后</span><br><span class="line">    a[:]  从头取到尾</span><br><span class="line">z&lt;<span class="number">0</span>:</span><br><span class="line">a[<span class="number">-1</span>:<span class="number">-5</span>:<span class="number">-1</span>] olleh</span><br><span class="line">a[<span class="number">3</span>::<span class="number">-1</span>] lleh </span><br><span class="line">总结   </span><br><span class="line">若跳数为负数时则为逆序且头要小于尾，反之为正序且头要大于尾。</span><br></pre></td></tr></table></figure></p>
-<p>-字符串的内置函数<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">lower()   字母转换为小写</span><br><span class="line">upper()   字母转换为大写</span><br><span class="line">capitalize  首字母大写</span><br><span class="line">index()   寻找字符或字符串，并返回第一个字符的索引，若未找到则报错。</span><br><span class="line">find()    寻找字符或字符串，并返回第一个字符的索引，若未找到则返回<span class="number">-1</span>。</span><br><span class="line">split()   分隔字符串</span><br><span class="line">连接符.join(待连接的列表)</span><br><span class="line">islower()   判断字符串是否全为小写</span><br><span class="line">isupper()   判断字符串是否全为大写</span><br><span class="line">isalnum()   判断字符串是否只有数字或字母</span><br><span class="line">isalpha()   判断字符串是否全为字母</span><br><span class="line">isdigit()   判断字符串是否全为数</span><br><span class="line">isspace()   判断字符串是否全为空格</span><br></pre></td></tr></table></figure></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">Python</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/Python//" class="article-tag-list-link color2">Python</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/09/01/Python基本类型之数字,字符串/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
@@ -1482,6 +1571,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">jQuery</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Listener</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Filter</a>
               </li>
             
             <div class="clearfix"></div>
